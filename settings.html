@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Web Page Settings</title>
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/feature-v2/bootstrap/bootstrap.css" />
+    <!--<link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/rise/css/rise.css">-->
+</head>
+<body>
+<!-- Local dev - trigger modal -->
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#settingsModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <img src="//s3.amazonaws.com/rise-common-test/images/close.png" alt="Close">
+                    </button>
+                    <!--<h1 data-i18n="[prepend]settings"></h1>-->
+                    <h1 class="modal-title">Web Page Settings</h1>
+                    <div class="checkbox">
+                        <!--<label for="terms" data-i18n="[append]terms">-->
+                        <label for="terms">
+                            <input id="terms" name="terms" type="checkbox" value="terms" />
+                            I acknowledge that there is currently no charge for this Widget, but at a date that has yet to be determined, it will cost $2 per Display, per month.  At that time I will have 30 days to decide if I wish to continue using this Widget.
+                        </label>
+                    </div>
+                    <div>
+                        <button id="save" class="btn btn-primary" type="button">
+                            <!--<span class="button-spacer" data-i18n="save"></span>-->
+                            <span class="button-spacer">Save</span>
+                            <i class="fa fa-check-circle"></i>
+                        </button>
+                        <button id="cancel" class="btn btn-primary" type="button">
+                            <!--<span class="button-spacer" data-i18n="cancel"></span>-->
+                            <span class="button-spacer">Cancel</span>
+                            <i class="fa fa-times-circle"></i>
+                        </button>
+                        <button id="help" class="btn btn-primary" type="button">
+                            <!--<span class="button-spacer" data-i18n="help"></span>-->
+                            <span class="button-spacer">Help</span>
+                            <i class="fa fa-question-circle"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="settings-alert" class="alert alert-warning"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>
+    <script src="//s3.amazonaws.com/rise-common-test/scripts/feature-v2/bootstrap/bootstrap.js"></script>
+    <script src="//s3.amazonaws.com/rise-common-test/scripts/i18next/i18next.js"></script>
+</body>
+</html>
