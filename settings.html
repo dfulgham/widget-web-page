@@ -7,11 +7,44 @@
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/bootstrap-form-helper/bootstrap-formhelpers.min.css" />
     <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/rise/css/rise.min.css">
 </head>
 <body>
+<div class="widget-overlay"></div>
+<div class="widget-wrapper container modal-content">
+    <div class="modal-header">
+        <h1 id="settings-title" data-i18n="[prepend]settings">
+            <button id="settings-close" type="button" class="close" aria-hidden="true">
+                <img src="//s3.amazonaws.com/rise-common/images/close.png" alt="Close">
+            </button>
+        </h1>
+        <div class="sticky-wrapper">
+            <div class="btn-toolbar sticky-buttons">
+                <button id="save" class="btn btn-primary" type="button">
+                    <span class="button-spacer" data-i18n="save"></span>
+                    <i class="fa fa-check-circle"></i>
+                </button>
+                <button id="cancel" class="btn btn-primary" type="button">
+                    <span class="button-spacer" data-i18n="cancel"></span>
+                    <i class="fa fa-times-circle"></i>
+                </button>
+                <button id="help" class="btn btn-primary" type="button">
+                    <span class="button-spacer" data-i18n="help"></span>
+                    <i class="fa fa-question-circle"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <form role="form">
+        <div class="form-group">
+            <label for="url" data-i18n="url.label"></label>
+            <input id="url" name="url" type="text" class="form-control" />
+        </div>
+    </form>
+</div>
 
-    <script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>
-    <script src="//s3.amazonaws.com/rise-common-test/scripts/i18next/i18next.js"></script>
+<script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>
+<script src="//s3.amazonaws.com/rise-common-test/scripts/i18next/i18next.js"></script>
 </body>
 </html>
