@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/bootstrap-form-helper/bootstrap-formhelpers.min.css" />
     <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/rise/css/rise.min.css">
+    <script src="js/vendor/Namespace.js"></script>
 </head>
 <body>
 <div class="widget-overlay"></div>
@@ -44,7 +45,15 @@
     </form>
 </div>
 
-<script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>
-<script src="//s3.amazonaws.com/rise-common-test/scripts/i18next/i18next.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>
+    <script src="//s3.amazonaws.com/rise-common/scripts/sticky/jquery.sticky.min.js"></script>
+    <script src="//s3.amazonaws.com/rise-common-test/scripts/i18next/i18next.js"></script>
+    <script src="js/settings.js"></script>
+    <script>
+        $(document).ready(function() {
+            Settings.init();
+        });
+    </script>
 </body>
 </html>
