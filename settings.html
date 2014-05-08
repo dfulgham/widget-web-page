@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Web Page Settings</title>
 
+    <style type="text/css">
+        .widget-wrapper {
+            display: none;
+        }
+    </style>
+
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/bootstrap-select/bootstrap-select.min.css">
@@ -13,97 +19,98 @@
     <script src="js/vendor/Namespace.js"></script>
 </head>
 <body>
-<div class="widget-overlay"></div>
-<div class="widget-wrapper container modal-content">
-    <div class="modal-header">
-        <h1 id="settings-title" data-i18n="[prepend]settings">
-            <button id="settings-close" type="button" class="close" aria-hidden="true">
-                <img src="//s3.amazonaws.com/rise-common-test/images/close.png" alt="Close">
-            </button>
-        </h1>
-        <div class="sticky-wrapper">
-            <div class="btn-toolbar sticky-buttons">
-                <button id="save" class="btn btn-primary" type="button">
-                    <span class="button-spacer" data-i18n="save"></span>
-                    <i class="fa fa-check-circle"></i>
+    <div class="widget-overlay"></div>
+    <div class="widget-wrapper container modal-content">
+        <div class="modal-header">
+            <h1 id="settings-title" data-i18n="[prepend]settings">
+                <button id="settings-close" type="button" class="close" aria-hidden="true">
+                    <img src="//s3.amazonaws.com/rise-common-test/images/close.png" alt="Close">
                 </button>
-                <button id="cancel" class="btn btn-primary" type="button">
-                    <span class="button-spacer" data-i18n="cancel"></span>
-                    <i class="fa fa-times-circle"></i>
-                </button>
-                <button id="help" class="btn btn-primary" type="button">
-                    <span class="button-spacer" data-i18n="help"></span>
-                    <i class="fa fa-question-circle"></i>
-                </button>
+            </h1>
+            <div class="sticky-wrapper">
+                <div class="btn-toolbar sticky-buttons">
+                    <button id="save" class="btn btn-primary" type="button">
+                        <span class="button-spacer" data-i18n="save"></span>
+                        <i class="fa fa-check-circle"></i>
+                    </button>
+                    <button id="cancel" class="btn btn-primary" type="button">
+                        <span class="button-spacer" data-i18n="cancel"></span>
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                    <button id="help" class="btn btn-primary" type="button">
+                        <span class="button-spacer" data-i18n="help"></span>
+                        <i class="fa fa-question-circle"></i>
+                    </button>
+                </div>
             </div>
         </div>
+        <form role="form">
+            <div class="row">
+                <div class="col-sm-11 col-md-10">
+                    <div class="form-group">
+                        <label for="url" data-i18n="url"></label>
+                        <input id="url" name="url" type="text" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div id="settings-alert" class="alert alert-warning"></div>
+            <div class="row">
+                <div class="col-md-4 col-sm-5 col-xs-7">
+                    <div class="form-group">
+                        <label for="scroll-horizontal" data-i18n="scroll-horizontal"></label>
+                        <input id="scroll-horizontal" name="scroll-horizontal" type="text" class="form-control" placeholder="0" />
+                    </div>
+                </div>
+                <div class="clearfix visible-xs"></div>
+                <div class="col-md-4 col-sm-5 col-xs-7 col-md-offset-1 col-sm-offset-1">
+                    <div class="form-group">
+                        <label for="scroll-vertical" data-i18n="scroll-vertical"></label>
+                        <input id="scroll-vertical" name="scroll-vertical" type="text" class="form-control" placeholder="0" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-5 col-xs-7">
+                    <div class="form-group">
+                        <label for="zoom" data-i18n="zoom"></label>
+                        <select id="zoom" name="zoom" class="form-control">
+                            <option value="50">50%</option>
+                            <option value="75">75%</option>
+                            <option value="90">90%</option>
+                            <option value="100" selected="selected">100%</option>
+                            <option value="125">125%</option>
+                            <option value="150">150%</option>
+                            <option value="200">200%</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label for="interactive" data-i18n="interactive"></label>
+                    <input id="interactive" name="interactive" type="checkbox" value="interactive" checked="checked" />
+                </div>
+                <div class="checkbox">
+                    <label for="scrollbars" data-i18n="scrollbars"></label>
+                    <input id="scrollbars" name="scrollbars" type="checkbox" value="scrollbars" disabled />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-5 col-xs-7">
+                    <div class="form-group">
+                        <label for="refresh" data-i18n="refresh.label"></label>
+                        <select id="refresh" name="refresh" class="form-control">
+                            <option value="none" selected="selected" data-i18n="refresh.none"></option>
+                            <option value="1">1</option>
+                            <option value="5">5</option>
+                            <option value="30">30</option>
+                            <option value="60">60</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-    <form role="form">
-        <div class="row">
-            <div class="col-sm-11 col-md-10">
-                <div class="form-group">
-                    <label for="url" data-i18n="url"></label>
-                    <input id="url" name="url" type="text" class="form-control" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-5 col-xs-7">
-                <div class="form-group">
-                    <label for="scroll-horizontal" data-i18n="scroll-horizontal"></label>
-                    <input id="scroll-horizontal" name="scroll-horizontal" type="text" class="form-control" placeholder="0" />
-                </div>
-            </div>
-            <div class="clearfix visible-xs"></div>
-            <div class="col-md-4 col-sm-5 col-xs-7 col-md-offset-1 col-sm-offset-1">
-                <div class="form-group">
-                    <label for="scroll-vertical" data-i18n="scroll-vertical"></label>
-                    <input id="scroll-vertical" name="scroll-vertical" type="text" class="form-control" placeholder="0" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-5 col-xs-7">
-                <div class="form-group">
-                    <label for="zoom" data-i18n="zoom"></label>
-                    <select id="zoom" name="zoom" class="form-control">
-                        <option value="50">50%</option>
-                        <option value="75">75%</option>
-                        <option value="90">90%</option>
-                        <option value="100" selected="selected">100%</option>
-                        <option value="125">125%</option>
-                        <option value="150">150%</option>
-                        <option value="200">200%</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="checkbox">
-                <label for="interactive" data-i18n="interactive"></label>
-                <input id="interactive" name="interactive" type="checkbox" value="interactive" checked="checked" />
-            </div>
-            <div class="checkbox">
-                <label for="scrollbars" data-i18n="scrollbars"></label>
-                <input id="scrollbars" name="scrollbars" type="checkbox" value="scrollbars" disabled />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-5 col-xs-7">
-                <div class="form-group">
-                    <label for="refresh" data-i18n="refresh.label"></label>
-                    <select id="refresh" name="refresh" class="form-control">
-                        <option value="none" selected="selected" data-i18n="refresh.none"></option>
-                        <option value="1">1</option>
-                        <option value="5">5</option>
-                        <option value="30">30</option>
-                        <option value="60">60</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>

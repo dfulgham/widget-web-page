@@ -11,15 +11,16 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
 
     // private functions
     function _getSettings(){
-        var errorFound = false;
+        var alerts = document.getElementById("settings-alert"),
+            errorFound = false;
 
-        //$("#settings-alert").empty();
+        $("#settings-alert").empty();
 
         //TODO: Perform validation
 
         if (errorFound) {
-            //$("#settings-alert").show();
-            // $(".widget-wrapper").scrollTop(0);
+            $("#settings-alert").show();
+            $(".widget-wrapper").scrollTop(0);
         } else {
 
 
@@ -52,11 +53,19 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
             var self = this;
 
             // Add event handlers
+            $("#save").on("click", function() {
+                _getSettings();
+            });
+
             $("#cancel, #settings-close").on("click", function() {
                 gadgets.rpc.call("", "rscmd_closeSettings", null);
             });
 
-            //TODO: initialization things
+            $("#help").on("click", function() {
+                window.open("http://www.risevision.com/help/users/what-are-gadgets/premium-gadgets/rise-vision-weather/", "_blank");
+            });
+
+            $("#settings-alert").hide();
 
             //Request additional parameters from the Viewer.
             gadgets.rpc.call("", "rscmd_getAdditionalParams", function(result) {
