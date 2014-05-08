@@ -17,3 +17,27 @@ msgstr "Cancel"
 
 msgid "help"
 msgstr "Help"
+
+msgid "url"
+msgstr "URL*"
+
+msgid "scroll-horizontal"
+msgstr "Horizontal Scroll (pixels):"
+
+msgid "scroll-vertical"
+msgstr "Vertical Scroll (pixels)"
+
+msgid "zoom"
+msgstr "Zoom (Percentage)"
+
+msgid "interactive"
+msgstr "Interactive"
+
+msgid "scrollbars"
+msgstr "Scroll Bars Enabled"
+
+msgid "refresh##label"
+msgstr "Data Refresh Intervals (Minutes)"
+
+msgid "refresh##none"
+msgstr "Do Not Refresh"

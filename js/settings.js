@@ -49,8 +49,13 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     // public space
     return {
         init: function(){
+            var self = this;
 
-            console.log("Settings::init()");
+            // Add event handlers
+            $("#cancel, #settings-close").on("click", function() {
+                gadgets.rpc.call("", "rscmd_closeSettings", null);
+            });
+
             //TODO: initialization things
 
             //Request additional parameters from the Viewer.

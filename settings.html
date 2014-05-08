@@ -17,7 +17,7 @@
     <div class="modal-header">
         <h1 id="settings-title" data-i18n="[prepend]settings">
             <button id="settings-close" type="button" class="close" aria-hidden="true">
-                <img src="//s3.amazonaws.com/rise-common/images/close.png" alt="Close">
+                <img src="//s3.amazonaws.com/rise-common-test/images/close.png" alt="Close">
             </button>
         </h1>
         <div class="sticky-wrapper">
@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col-sm-9">
                 <div class="form-group">
-                    <label for="url" data-i18n="url.label"></label>
+                    <label for="url" data-i18n="url"></label>
                     <input id="url" name="url" type="text" class="form-control" />
                 </div>
             </div>
@@ -63,7 +63,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label for="zoom" data-i18n="zoom.label"></label>
+                    <label for="zoom" data-i18n="zoom"></label>
                     <select id="zoom" name="zoom" class="form-control">
                         <option value="50" label="50%"></option>
                         <option value="75" label="75%"></option>
@@ -78,11 +78,11 @@
         </div>
         <div class="form-group">
             <div class="checkbox">
-                <label for="interactive" data-i18n="interactive.label"></label>
+                <label for="interactive" data-i18n="interactive"></label>
                 <input id="interactive" name="interactive" type="checkbox" value="interactive" checked="checked" />
             </div>
             <div class="checkbox">
-                <label for="scrollbars" data-i18n="scrollbars.label"></label>
+                <label for="scrollbars" data-i18n="scrollbars"></label>
                 <input id="scrollbars" name="scrollbars" type="checkbox" value="scrollbars" disabled />
             </div>
         </div>
@@ -105,8 +105,11 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>
-    <script src="//s3.amazonaws.com/rise-common/scripts/sticky/jquery.sticky.min.js"></script>
+
+    <script src="//s3.amazonaws.com/rise-common/scripts/bootstrap/bootstrap.min.js"></script>
+    <script src="//s3.amazonaws.com/rise-common/scripts/bootstrap-select/bootstrap-select.min.js"></script>
     <script src="//s3.amazonaws.com/rise-common-test/scripts/i18next/i18next.js"></script>
+    <script src="//s3.amazonaws.com/rise-common/scripts/sticky/jquery.sticky.min.js"></script>
     <script src="js/settings.js"></script>
     <script>
         $(document).ready(function() {

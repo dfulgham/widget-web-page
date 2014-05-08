@@ -2,5 +2,15 @@
     "settings": "Web Page Settings",
     "save": "Save",
     "cancel": "Cancel",
-    "help": "Help"
+    "help": "Help",
+    "url": "URL*",
+    "scroll-horizontal": "Horizontal Scroll (pixels):",
+    "scroll-vertical": "Vertical Scroll (pixels)",
+    "zoom": "Zoom (Percentage)",
+    "interactive": "Interactive",
+    "scrollbars": "Scroll Bars Enabled",
+    "refresh": {
+        "label": "Data Refresh Intervals (Minutes)",
+        "none": "Do Not Refresh"
+    }
 }
