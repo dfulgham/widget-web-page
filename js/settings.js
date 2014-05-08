@@ -14,9 +14,12 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         var alerts = document.getElementById("settings-alert"),
             errorFound = false;
 
-        $("#settings-alert").empty();
+        $("#settings-alert").empty().hide();
 
         //TODO: Perform validation
+        errorFound = (_validateRequired($("#url"), alerts, "URL")) ? true : errorFound;
+        errorFound = (_validateRequired($("#scroll-horizontal"), alerts, "Horizontal Scroll")) ? true : errorFound;
+        errorFound = (_validateRequired($("#scroll-vertical"), alerts, "Vertical Scroll")) ? true : errorFound;
 
         if (errorFound) {
             $("#settings-alert").show();
@@ -45,6 +48,21 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         //TODO: Configure all additional params
 
         return _additionalParams;
+    }
+
+    function _validateRequired($element, errors, fieldName){
+        //Don't validate element if it's hidden.
+        if (!$element.is(":visible")) {
+            return false;
+        } else {
+            if (!$.trim($element.val())) {
+                errors.innerHTML += fieldName + " is a required field.<br />";
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
     }
 
     // public space
@@ -82,10 +100,6 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
                     //TODO: initialize with defaults
                 }
 
-                //TODO: Manually trigger event handlers so that the visibility of fields can be set.
-
-
-                //TODO: Translate
                 i18n.init({ fallbackLng: "en" }, function(t) {
                     $(".widget-wrapper").i18n().show();
                     $(".form-control").selectpicker();
