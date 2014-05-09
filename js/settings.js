@@ -120,6 +120,7 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
 
             //Request additional parameters from the Viewer.
             gadgets.rpc.call("", "rscmd_getAdditionalParams", function(result) {
+
                 if (result) {
                     var prefs = new gadgets.Prefs();
 
@@ -129,8 +130,9 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
                     //TODO: initialize with params
 
                 } else {
-
-                    //TODO: initialize with defaults
+                    // initialize input elements with defaults
+                    $("#scroll-horizontal").val(0);
+                    $("#scroll-vertical").val(0);
                 }
 
                 i18n.init({ fallbackLng: "en" }, function(t) {
