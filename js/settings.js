@@ -4,12 +4,28 @@ if (!Namespace.exist('RiseVision.WebPage')) {
 }
 
 RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
+    "use strict";
 
     // private variables
     var _params,
         _additionalParams = {};
 
     // private functions
+    function _bind(){
+        // Add event handlers
+        $("#save").on("click", function() {
+            _getSettings();
+        });
+
+        $("#cancel, #settings-close").on("click", function() {
+            gadgets.rpc.call("", "rscmd_closeSettings", null);
+        });
+
+        $("#help").on("click", function() {
+            window.open("http://www.risevision.com/help/users/what-are-gadgets/premium-gadgets/rise-vision-weather/", "_blank");
+        });
+    }
+
     function _getSettings(){
         $("#settings-alert").empty().hide();
 
@@ -94,18 +110,7 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         init: function(){
             var self = this;
 
-            // Add event handlers
-            $("#save").on("click", function() {
-                _getSettings();
-            });
-
-            $("#cancel, #settings-close").on("click", function() {
-                gadgets.rpc.call("", "rscmd_closeSettings", null);
-            });
-
-            $("#help").on("click", function() {
-                window.open("http://www.risevision.com/help/users/what-are-gadgets/premium-gadgets/rise-vision-weather/", "_blank");
-            });
+            _bind();
 
             $("#settings-alert").hide();
 
