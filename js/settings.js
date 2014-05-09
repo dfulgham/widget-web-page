@@ -21,6 +21,8 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         errorFound = (_validateRequired($("#scroll-horizontal"), alerts, "Horizontal Scroll")) ? true : errorFound;
         errorFound = (_validateRequired($("#scroll-vertical"), alerts, "Vertical Scroll")) ? true : errorFound;
 
+        errorFound = (_validateURL($("#url"), alerts, "URL")) ? true : errorFound;
+
         if (errorFound) {
             $("#settings-alert").show();
             $(".widget-wrapper").scrollTop(0);
@@ -60,6 +62,29 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
                 return true;
             }
             else {
+                return false;
+            }
+        }
+    }
+
+    function _validateURL($element, errors, fieldName){
+        /*
+         Discussion
+         http://stackoverflow.com/questions/37684/how-to-replace-plain-urls-with-links#21925491
+
+         Using
+         https://github.com/component/regexps/blob/master/index.js#L3
+
+         */
+        var urlRegExp = /^(?:(?:ht|f)tp(?:s?)\:\/\/|~\/|\/)?(?:\w+:\w+@)?((?:(?:[-\w\d{1-3}]+\.)+(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2}))|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/i;
+
+        if (!$element.is(":visible")) {
+            return false;
+        } else {
+            if (!urlRegExp.test($.trim($element.val()))){
+                errors.innerHTML += fieldName + " is invalid. Please enter a valid URL.<br />";
+                return true;
+            }else{
                 return false;
             }
         }
