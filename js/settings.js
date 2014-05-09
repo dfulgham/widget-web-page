@@ -7,14 +7,12 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     "use strict";
 
     // private variables
-    var _params,
-        _additionalParams = {};
 
     // private functions
     function _bind(){
         // Add event handlers
         $("#save").on("click", function() {
-            _getSettings();
+            _saveSettings();
         });
 
         $("#cancel, #settings-close").on("click", function() {
@@ -26,38 +24,44 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         });
     }
 
-    function _getSettings(){
-        $("#settings-alert").empty().hide();
+    function _getAdditionalParams(){
+        var additionalParams = {};
 
+        additionalParams["url"] = $("#url").val();
+
+        return additionalParams;
+    }
+
+    function _getParams(){
+        var params = "";
+
+        //TODO: Construct parameters string to pass to RVA.
+
+        return params;
+    }
+
+    function _saveSettings(){
+        var settings = null;
+
+        // validate
         if(!_validate()){
             $("#settings-alert").show();
             $(".widget-wrapper").scrollTop(0);
         } else {
-            //TODO: Pass the custom Widget URL First.
+            //construct settings object
+            settings = {
+             "params" : _getParams(),
+             "additionalParams" : JSON.stringify(_getAdditionalParams())
+            }
 
-
-            //TODO: Construct parameters string to pass to RVA.
-
-            /*settings = {
-             "params" : params,
-             "additionalParams" : JSON.stringify(*//* call saveAdditionalParams() *//*);
-             }*/
-
-            //$("#settings-alert").hide();
-
-            //gadgets.rpc.call("", "rscmd_saveSettings", null, settings);
+            gadgets.rpc.call("", "rscmd_saveSettings", null, settings);
         }
-    }
-
-    function _saveAdditionalParams(){
-
-        //TODO: Configure all additional params
-
-        return _additionalParams;
     }
 
     function _validate(){
         var alerts = document.getElementById("settings-alert");
+
+        $("#settings-alert").empty().hide();
 
         if(!_validateRequired($("#url"), alerts, "URL")){ return false; }
         if(!_validateURL($("#url"), alerts, "URL")){ return false; }
