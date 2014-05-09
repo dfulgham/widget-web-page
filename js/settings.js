@@ -33,9 +33,12 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     }
 
     function _getParams(){
-        var params = "";
-
-        //TODO: Construct parameters string to pass to RVA.
+        var params = "&up_scroll-horizontal=" + $("#scroll-horizontal").val() +
+            "&up_scroll-vertical=" + $("#scroll-vertical").val() +
+            "&up_zoom=" + $("#zoom").val() +
+            "&up_interactive=" + $("#interactive").is(":checked").toString() +
+            "&up_scrollbars=" + $("#scrollbars").is(":checked").toString() +
+            "&up_data-refresh=" + $("#refresh").val();
 
         return params;
     }
@@ -112,7 +115,7 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     // public space
     return {
         init: function(){
-            var self = this;
+            var prefs = null;
 
             _bind();
 
@@ -122,12 +125,19 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
             gadgets.rpc.call("", "rscmd_getAdditionalParams", function(result) {
 
                 if (result) {
-                    var prefs = new gadgets.Prefs();
+                    prefs = new gadgets.Prefs();
 
                     result = JSON.parse(result);
-                    self.result = result;
 
-                    //TODO: initialize with params
+                    $("#scroll-horizontal").val(prefs.getString("scroll-horizontal"));
+                    $("#scroll-vertical").val(prefs.getString("scroll-vertical"));
+                    $("#zoom").val(prefs.getString("zoom"));
+                    $("#interactive").attr("checked", prefs.getBool("interactive"));
+                    $("#scrollbars").attr("checked", prefs.getBool("scrollbars"));
+                    $("#refresh").val(prefs.getString("data-refresh"));
+
+                    //Additional params
+                    $("#url").val(result["url"]);
 
                 } else {
                     // initialize input elements with defaults
