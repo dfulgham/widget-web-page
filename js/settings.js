@@ -7,6 +7,7 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     "use strict";
 
     // private variables
+    var _prefs = null;
 
     // private functions
     function _bind(){
@@ -33,8 +34,8 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     }
 
     function _getParams(){
-        var params = "&up_scroll-horizontal=" + $("#scroll-horizontal").val() +
-            "&up_scroll-vertical=" + $("#scroll-vertical").val() +
+        var params = "&up_scroll-horizontal=" + $.trim($("#scroll-horizontal").val()) +
+            "&up_scroll-vertical=" + $.trim($("#scroll-vertical").val()) +
             "&up_zoom=" + $("#zoom").val() +
             "&up_interactive=" + $("#interactive").is(":checked").toString() +
             "&up_scrollbars=" + $("#scrollbars").is(":checked").toString() +
@@ -72,6 +73,7 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         if(!_validateIsNumber($("#scroll-horizontal"), alerts, "Horizontal Scroll")){ return false; }
         if(!_validateRequired($("#scroll-vertical"), alerts, "Vertical Scroll")){ return false; }
         if(!_validateIsNumber($("#scroll-vertical"), alerts, "Vertical Scroll")){ return false; }
+        if(!_validateScrollSizes(alerts)){ return false; }
 
         return true;
     }
@@ -110,6 +112,23 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         return true;
     }
 
+    function _validateScrollSizes(errors){
+        var scrollHorizVal = parseInt($.trim($("#scroll-horizontal").val())),
+            scrollVertVal = parseInt($.trim($("#scroll-vertical").val()));
+
+        if(scrollHorizVal >  parseInt(_prefs.getString("rsW"))){
+            errors.innerHTML += "Horizontal Scroll value entered exceeds size of placeholder.<br />";
+            return false;
+        }
+
+        if(scrollVertVal > parseInt(_prefs.getString("rsH"))){
+            errors.innerHTML += "Vertical Scroll value entered exceeds size of placeholder.<br />";
+            return false;
+        }
+
+        return true;
+    }
+
     function _validateURL($element, errors, fieldName){
         /*
          Discussion
@@ -137,7 +156,6 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     // public space
     return {
         init: function(){
-            var prefs = null;
 
             _bind();
 
@@ -147,16 +165,16 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
             gadgets.rpc.call("", "rscmd_getAdditionalParams", function(result) {
 
                 if (result) {
-                    prefs = new gadgets.Prefs();
+                    _prefs = new gadgets.Prefs();
 
                     result = JSON.parse(result);
 
-                    $("#scroll-horizontal").val(prefs.getString("scroll-horizontal"));
-                    $("#scroll-vertical").val(prefs.getString("scroll-vertical"));
-                    $("#zoom").val(prefs.getString("zoom"));
-                    $("#interactive").attr("checked", prefs.getBool("interactive"));
-                    $("#scrollbars").attr("checked", prefs.getBool("scrollbars"));
-                    $("#refresh").val(prefs.getString("data-refresh"));
+                    $("#scroll-horizontal").val(_prefs.getString("scroll-horizontal"));
+                    $("#scroll-vertical").val(_prefs.getString("scroll-vertical"));
+                    $("#zoom").val(_prefs.getString("zoom"));
+                    $("#interactive").attr("checked", _prefs.getBool("interactive"));
+                    $("#scrollbars").attr("checked", _prefs.getBool("scrollbars"));
+                    $("#refresh").val(_prefs.getString("data-refresh"));
 
                     //Additional params
                     $("#url").val(result["url"]);
