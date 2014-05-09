@@ -69,7 +69,29 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         if(!_validateRequired($("#url"), alerts, "URL")){ return false; }
         if(!_validateURL($("#url"), alerts, "URL")){ return false; }
         if(!_validateRequired($("#scroll-horizontal"), alerts, "Horizontal Scroll")){ return false; }
+        if(!_validateIsNumber($("#scroll-horizontal"), alerts, "Horizontal Scroll")){ return false; }
         if(!_validateRequired($("#scroll-vertical"), alerts, "Vertical Scroll")){ return false; }
+        if(!_validateIsNumber($("#scroll-vertical"), alerts, "Vertical Scroll")){ return false; }
+
+        return true;
+    }
+
+    function _validateIsNumber($element, errors, fieldName){
+        /*
+         Stricter than parseInt, using regular expression as mentioned on mozilla
+         https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
+         */
+        var val = $.trim($element.val()),
+            parseIntRegExp = /^(\-|\+)?([0-9]+|Infinity)$/;
+
+        if (!$element.is(":visible")) {
+            return true;
+        } else {
+            if (!parseIntRegExp.test(val)) {
+                errors.innerHTML += fieldName + " must be a number.<br />";
+                return false;
+            }
+        }
 
         return true;
     }
