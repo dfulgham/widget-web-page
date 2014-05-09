@@ -11,24 +11,12 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
 
     // private functions
     function _getSettings(){
-        var alerts = document.getElementById("settings-alert"),
-            errorFound = false;
-
         $("#settings-alert").empty().hide();
 
-        //TODO: Perform validation
-        errorFound = (_validateRequired($("#url"), alerts, "URL")) ? true : errorFound;
-        errorFound = (_validateRequired($("#scroll-horizontal"), alerts, "Horizontal Scroll")) ? true : errorFound;
-        errorFound = (_validateRequired($("#scroll-vertical"), alerts, "Vertical Scroll")) ? true : errorFound;
-
-        errorFound = (_validateURL($("#url"), alerts, "URL")) ? true : errorFound;
-
-        if (errorFound) {
+        if(!_validate()){
             $("#settings-alert").show();
             $(".widget-wrapper").scrollTop(0);
         } else {
-
-
             //TODO: Pass the custom Widget URL First.
 
 
@@ -52,19 +40,29 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         return _additionalParams;
     }
 
+    function _validate(){
+        var alerts = document.getElementById("settings-alert");
+
+        if(!_validateRequired($("#url"), alerts, "URL")){ return false; }
+        if(!_validateURL($("#url"), alerts, "URL")){ return false; }
+        if(!_validateRequired($("#scroll-horizontal"), alerts, "Horizontal Scroll")){ return false; }
+        if(!_validateRequired($("#scroll-vertical"), alerts, "Vertical Scroll")){ return false; }
+
+        return true;
+    }
+
     function _validateRequired($element, errors, fieldName){
         //Don't validate element if it's hidden.
         if (!$element.is(":visible")) {
-            return false;
+            return true;
         } else {
             if (!$.trim($element.val())) {
                 errors.innerHTML += fieldName + " is a required field.<br />";
-                return true;
-            }
-            else {
                 return false;
             }
         }
+
+        return true;
     }
 
     function _validateURL($element, errors, fieldName){
@@ -78,16 +76,17 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
          */
         var urlRegExp = /^(?:(?:ht|f)tp(?:s?)\:\/\/|~\/|\/)?(?:\w+:\w+@)?((?:(?:[-\w\d{1-3}]+\.)+(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2}))|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/i;
 
+        //Don't validate element if it's hidden.
         if (!$element.is(":visible")) {
-            return false;
+            return true;
         } else {
             if (!urlRegExp.test($.trim($element.val()))){
                 errors.innerHTML += fieldName + " is invalid. Please enter a valid URL.<br />";
-                return true;
-            }else{
                 return false;
             }
         }
+
+        return true;
     }
 
     // public space
