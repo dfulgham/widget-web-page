@@ -1,7 +1,5 @@
-// create namespace (if not already created)
-if (!Namespace.exist('RiseVision.WebPage')) {
-    Namespace('RiseVision.WebPage');
-}
+var RiseVision = RiseVision || {};
+RiseVision.WebPage = {};
 
 RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     "use strict";
