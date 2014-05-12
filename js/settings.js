@@ -213,6 +213,3 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     };
 })($,gadgets, i18n);
 
-// imports all properties from RiseVision.WebPage into the global space
-Namespace.use('RiseVision.WebPage.*');
-

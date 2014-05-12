@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Web Page Settings</title>
 
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/glyphicons/glyphicons.min.css">
     <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/bootstrap-select/bootstrap-select.min.css">
     <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/bootstrap-form-helper/bootstrap-formhelpers.min.css" />
     <link rel="stylesheet" href="//s3.amazonaws.com/rise-common-test/styles/rise/css/rise.min.css">
 
     <style type="text/css">
+        /* rise.min.css from rise-common-test is applying a background colour, overriding here */
+        body,html {
+            background-color: transparent;
+        }
         .widget-wrapper {
             display: none;
         }
@@ -24,9 +28,13 @@
         .checkbox-scrollbars label {
             font-weight: 400;
         }
+        /* rise.min.css from rise-common-test applies this override styling
+           under a class called .modal-footer, need to apply my own here */
+        .btn .glyphicons::before {
+            margin-top: -2px;
+            font-size: 18px;
+        }
     </style>
-
-    <script src="js/vendor/Namespace.js"></script>
 </head>
 <body>
     <div class="widget-overlay"></div>
@@ -34,27 +42,27 @@
         <div class="modal-header">
             <h1 id="settings-title" data-i18n="[prepend]settings">
                 <button id="settings-close" type="button" class="close" aria-hidden="true">
-                    <img src="//s3.amazonaws.com/rise-common-test/images/close.png" alt="Close">
+                    <i class="glyphicons remove_2"></i>
                 </button>
             </h1>
             <div class="sticky-wrapper">
                 <div class="btn-toolbar sticky-buttons">
                     <button id="save" class="btn btn-primary" type="button">
                         <span class="button-spacer" data-i18n="save"></span>
-                        <i class="fa fa-check-circle"></i>
+                        <i class="glyphicons white ok_2 icon-right"></i>
                     </button>
                     <button id="cancel" class="btn btn-primary" type="button">
                         <span class="button-spacer" data-i18n="cancel"></span>
-                        <i class="fa fa-times-circle"></i>
+                        <i class="glyphicons white remove_2 icon-right"></i>
                     </button>
                     <button id="help" class="btn btn-primary" type="button">
                         <span class="button-spacer" data-i18n="help"></span>
-                        <i class="fa fa-question-circle"></i>
+                        <i class="glyphicons white circle_question_mark icon-right"></i>
                     </button>
                 </div>
             </div>
         </div>
-        <div id="settings-alert" class="alert alert-warning"></div>
+        <div id="settings-alert" class="alert alert-danger"></div>
         <form role="form">
             <div class="row">
                 <div class="col-sm-11 col-md-10">
