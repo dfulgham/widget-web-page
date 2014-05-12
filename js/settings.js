@@ -23,6 +23,17 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         $("#help").on("click", function() {
             window.open("http://www.risevision.com/help/users/what-are-gadgets/premium-gadgets/rise-vision-weather/", "_blank");
         });
+
+        $("#interactive").on("click", function(event) {
+            if ($(this).is(":checked")) {
+                $(".checkbox-scrollbars").show();
+            } else {
+                if ($("#scrollbars").is(":checked")) {
+                    $("#scrollbars").click();
+                }
+                $(".checkbox-scrollbars").hide();
+            }
+        });
     }
 
     function _getAdditionalParams(){
@@ -184,6 +195,9 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
                     $("#scroll-horizontal").val(0);
                     $("#scroll-vertical").val(0);
                 }
+
+                //Manually trigger event handlers so that the visibility of fields can be set.
+                $("#interactive").triggerHandler("click");
 
                 i18n.init({ fallbackLng: "en" }, function(t) {
                     $(".widget-wrapper").i18n().show();
