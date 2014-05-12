@@ -164,9 +164,9 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
             //Request additional parameters from the Viewer.
             gadgets.rpc.call("", "rscmd_getAdditionalParams", function(result) {
 
-                if (result) {
-                    _prefs = new gadgets.Prefs();
+                _prefs = new gadgets.Prefs();
 
+                if (result) {
                     result = JSON.parse(result);
 
                     $("#scroll-horizontal").val(_prefs.getString("scroll-horizontal"));
