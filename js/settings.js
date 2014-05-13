@@ -20,10 +20,10 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
 
     $("#help").on("click", function() {
       window.open("http://www.risevision.com/help/users/what-are-gadgets/" +
-        "premium-gadgets/rise-vision-weather/", "_blank");
+        "free-gadgets/rise-vision-url/", "_blank");
     });
 
-     $("#interactive").on("click", function(event) {
+    $("#interactive").on("click", function(event) {
       if ($(this).is(":checked")) {
         $(".checkbox-scrollbars").show();
       } else {
