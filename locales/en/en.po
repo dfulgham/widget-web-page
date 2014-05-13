@@ -21,17 +21,26 @@ msgstr "Help"
 msgid "url"
 msgstr "URL*"
 
-msgid "scroll-horizontal"
+msgid "scroll-horizontal##label"
 msgstr "Horizontal Scroll (pixels):"
 
-msgid "scroll-vertical"
-msgstr "Vertical Scroll (pixels)"
+msgid "scroll-horizontal##tooltip"
+msgstr "Enter amount you want clipped from the leftmost portion of the webpage."
+
+msgid "scroll-vertical##label"
+msgstr "Vertical Scroll (pixels):"
+
+msgid "scroll-vertical##tooltip"
+msgstr "Enter amount you want clipped from the topmost portion of the webpage."
 
 msgid "zoom"
 msgstr "Zoom (Percentage)"
 
-msgid "interactive"
+msgid "interactive##label"
 msgstr "Interactive"
+
+msgid "interactive##tooltip"
+msgstr "Enable to allow users to interact with webpage."
 
 msgid "scrollbars"
 msgstr "Scroll Bars Enabled"

@@ -213,12 +213,18 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
           $(".widget-wrapper").i18n().show();
           $(".form-control").selectpicker();
 
+          // Set tooltips only after i18n has shown
+          $("label[for='scroll-horizontal'] + button, " +
+            "label[for='scroll-vertical'] + button, " +
+            "label[for='interactive'] + button").popover({trigger:'click'});
+
           //Set buttons to be sticky only after wrapper is visible.
           $(".sticky-buttons").sticky({
               container : $(".widget-wrapper"),
               topSpacing : 41,	//top margin + border of wrapper
               getWidthFrom : $(".widget-wrapper")
           });
+
         });
       });
     }

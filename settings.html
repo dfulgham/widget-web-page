@@ -40,6 +40,9 @@
       margin-top: -2px;
       font-size: 18px;
     }
+    .btn-tip {
+      padding: 0 5px 2px 5px;
+    }
   </style>
 </head>
 <body>
@@ -80,25 +83,38 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 col-sm-5 col-xs-7">
+        <div class="col-md-4 col-sm-5 col-xs-9">
           <div class="form-group">
             <label for="scroll-horizontal"
-                   data-i18n="scroll-horizontal"></label>
+                   data-i18n="scroll-horizontal.label"></label>
+            <button type="button"
+                    class="btn btn-link btn-tip"
+                    data-toggle="popover" data-placement="top"
+                    data-i18n="[data-content]scroll-horizontal.tooltip">
+              <span class="glyphicons circle_question_mark"></span>
+            </button>
             <input id="scroll-horizontal" name="scroll-horizontal"
                    type="text" maxlength="12" class="form-control" />
           </div>
         </div>
         <div class="clearfix visible-xs"></div>
-        <div class="col-md-4 col-sm-5 col-xs-7 col-md-offset-1 col-sm-offset-1">
+        <div class="col-md-4 col-sm-5 col-xs-9 col-md-offset-1 col-sm-offset-1">
           <div class="form-group">
-            <label for="scroll-vertical" data-i18n="scroll-vertical"></label>
+            <label for="scroll-vertical"
+                   data-i18n="scroll-vertical.label"></label>
+            <button type="button"
+                    class="btn btn-link btn-tip"
+                    data-toggle="popover" data-placement="top"
+                    data-i18n="[data-content]scroll-vertical.tooltip">
+              <span class="glyphicons circle_question_mark"></span>
+            </button>
             <input id="scroll-vertical" name="scroll-vertical" type="text"
                   maxlength="12" class="form-control" />
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 col-sm-5 col-xs-7">
+        <div class="col-md-4 col-sm-5 col-xs-9">
           <label for="zoom" data-i18n="zoom"></label>
           <select id="zoom" name="zoom" class="form-control">
             <option value="50">50%</option>
@@ -113,7 +129,13 @@
       </div>
       <div class="form-group">
         <div class="checkbox">
-          <label for="interactive" data-i18n="interactive"></label>
+          <label for="interactive" data-i18n="interactive.label"></label>
+          <button type="button"
+                  class="btn btn-link btn-tip"
+                  data-toggle="popover" data-placement="top"
+                  data-i18n="[data-content]interactive.tooltip">
+            <span class="glyphicons circle_question_mark"></span>
+          </button>
           <input id="interactive" name="interactive" type="checkbox"
                  value="interactive" />
         </div>
@@ -124,7 +146,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 col-sm-5 col-xs-7">
+        <div class="col-md-4 col-sm-5 col-xs-9">
           <div class="form-group">
             <label for="refresh" data-i18n="refresh.label"></label>
             <select id="refresh" name="refresh" class="form-control">
