@@ -25,14 +25,8 @@
     .widget-wrapper {
       display: none;
     }
-    .checkbox label, .radio label {
+    .checkbox-primary label {
       font-weight: bold;
-    }
-    .checkbox-scrollbars {
-      margin-left: 20px;
-    }
-    .checkbox-scrollbars label {
-      font-weight: 400;
     }
     /* rise.min.css from rise-common-test applies this override styling
        under a class called .modal-footer, need to apply my own here */
@@ -127,8 +121,9 @@
           </select>
         </div>
       </div>
-      <div class="form-group">
-        <div class="checkbox">
+      <hr>
+      <div id="interactivity" class="form-group">
+        <div class="checkbox checkbox-primary">
           <label for="interactive" data-i18n="interactive.label"></label>
           <button type="button"
                   class="btn btn-link btn-tip"
@@ -139,12 +134,13 @@
           <input id="interactive" name="interactive" type="checkbox"
                  value="interactive" />
         </div>
-        <div class="checkbox checkbox-scrollbars">
+        <div class="checkbox">
           <label for="scrollbars" data-i18n="scrollbars"></label>
           <input id="scrollbars" name="scrollbars" type="checkbox"
                  value="scrollbars" />
         </div>
       </div>
+      <hr>
       <div class="row">
         <div class="col-md-4 col-sm-5 col-xs-9">
           <div class="form-group">

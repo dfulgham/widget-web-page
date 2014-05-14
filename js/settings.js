@@ -25,12 +25,12 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
 
     $("#interactive").on("click", function(event) {
       if ($(this).is(":checked")) {
-        $(".checkbox-scrollbars").show();
+        $("#interactivity > div + div.checkbox").show();
       } else {
         if ($("#scrollbars").is(":checked")) {
           $("#scrollbars").click();
         }
-        $(".checkbox-scrollbars").hide();
+        $("#interactivity > div + div.checkbox").hide();
       }
     });
   }
