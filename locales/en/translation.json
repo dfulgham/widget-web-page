@@ -5,14 +5,14 @@
   "help": "Help",
   "url": "URL*",
   "scroll-horizontal": {
-    "label": "Horizontal Scroll (pixels):",
+    "label": "Horizontal Scroll (pixels)",
     "tooltip": "Enter amount you want clipped from the leftmost portion of the webpage."
   },
   "scroll-vertical": {
-    "label": "Vertical Scroll (pixels):",
+    "label": "Vertical Scroll (pixels)",
     "tooltip": "Enter amount you want clipped from the topmost portion of the webpage."
   },
-  "zoom": "Zoom (Percentage)",
+  "zoom": "Zoom",
   "interactive": {
     "label": "Interactive",
     "tooltip": "Enable to allow users to interact with webpage."
