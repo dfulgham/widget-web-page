@@ -25,18 +25,6 @@
     .widget-wrapper {
       display: none;
     }
-    .checkbox-primary label {
-      font-weight: bold;
-    }
-    /* rise.min.css from rise-common-test applies this override styling
-       under a class called .modal-footer, need to apply my own here */
-    .btn .glyphicons::before {
-      margin-top: -2px;
-      font-size: 18px;
-    }
-    .btn-tip {
-      padding: 0 5px 2px 5px;
-    }
   </style>
 </head>
 <body>
@@ -82,7 +70,7 @@
             <label for="scroll-horizontal"
                    data-i18n="scroll-horizontal.label"></label>
             <button type="button"
-                    class="btn btn-link btn-tip"
+                    class="btn btn-link btn-help"
                     data-toggle="popover" data-placement="top"
                     data-i18n="[data-content]scroll-horizontal.tooltip">
               <span class="glyphicons circle_question_mark"></span>
@@ -97,7 +85,7 @@
             <label for="scroll-vertical"
                    data-i18n="scroll-vertical.label"></label>
             <button type="button"
-                    class="btn btn-link btn-tip"
+                    class="btn btn-link btn-help"
                     data-toggle="popover" data-placement="top"
                     data-i18n="[data-content]scroll-vertical.tooltip">
               <span class="glyphicons circle_question_mark"></span>
@@ -126,7 +114,7 @@
         <div class="checkbox checkbox-primary">
           <label for="interactive" data-i18n="interactive.label"></label>
           <button type="button"
-                  class="btn btn-link btn-tip"
+                  class="btn btn-link btn-help"
                   data-toggle="popover" data-placement="right"
                   data-i18n="[data-content]interactive.tooltip">
             <span class="glyphicons circle_question_mark"></span>
