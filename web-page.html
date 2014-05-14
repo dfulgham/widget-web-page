@@ -1,14 +1,84 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Web Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web Page</title>
+
+  <style type="text/css">
+    /*
+    ----------
+    CSS Reset
+    ----------
+     */
+
+    /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
+
+    /**
+     * 1. Set default font family to sans-serif.
+     * 2. Prevent iOS text size adjust after orientation change, without disabling
+     *    user zoom.
+     */
+
+    html {
+      font-family: sans-serif; /* 1 */
+      -ms-text-size-adjust: 100%; /* 2 */
+      -webkit-text-size-adjust: 100%; /* 2 */
+    }
+
+    /**
+     * Remove default margin.
+     */
+
+    body {
+      margin: 0;
+    }
+
+    /*
+    --------------
+    Custom Styling
+    --------------
+     */
+
+
+  </style>
 </head>
 <body>
 
-    <script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>
-    <script src="//s3.amazonaws.com/Common-Test/Common/RiseVision.Common.min.js"></script>
-    <script src="js/web-page.js"></script>
+  <div id="webpage-container">
+    <iframe id="webpage-frame"></iframe>
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>
+  <script src="//s3.amazonaws.com/Common-Test/Common/RiseVision.Common.min.js"></script>
+  <script src="js/web-page.js"></script>
+
+  <script type="text/javascript">
+    //Add Analytics code.
+    var _gaq = _gaq || [];
+
+    _gaq.push(['_setAccount', 'UA-41395348-11']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script');
+      ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+        'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(ga, s);
+    })();
+
+    // Disable context menu (right click menu)
+    window.oncontextmenu = function() {
+      return false;
+    };
+
+    // Initialize Web Page Controller
+    $(document).ready(function() {
+      RiseVision.WebPage.Controller.init();
+    });
+  </script>
 </body>
 </html>
