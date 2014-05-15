@@ -40,6 +40,21 @@
     --------------
      */
 
+    body {
+      background-color: transparent;
+    }
+
+    #webpage-container {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #webpage-frame {
+    }
+
 
   </style>
 </head>
@@ -49,7 +64,6 @@
     <iframe id="webpage-frame"></iframe>
   </div>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>
   <script src="//s3.amazonaws.com/Common-Test/Common/RiseVision.Common.min.js"></script>
   <script src="js/web-page.js"></script>
@@ -76,9 +90,7 @@
     };
 
     // Initialize Web Page Controller
-    $(document).ready(function() {
-      RiseVision.WebPage.Controller.init();
-    });
+    RiseVision.WebPage.Controller.init();
   </script>
 </body>
 </html>
