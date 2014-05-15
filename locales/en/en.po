@@ -50,3 +50,9 @@ msgstr "Data Refresh Intervals (Minutes)"
 
 msgid "refresh##none"
 msgstr "Do Not Refresh"
+
+msgid "custom-validation##scroll-horizontal"
+msgstr "Horizontal Scroll value entered exceeds size of placeholder"
+
+msgid "custom-validation##scroll-vertical"
+msgstr "Vertical Scroll value entered exceeds size of placeholder"

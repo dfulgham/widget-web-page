@@ -21,5 +21,9 @@
   "refresh": {
       "label": "Data Refresh Intervals (Minutes)",
       "none": "Do Not Refresh"
+  },
+  "custom-validation": {
+    "scroll-horizontal": "Horizontal Scroll value entered exceeds size of placeholder",
+    "scroll-vertical": "Vertical Scroll value entered exceeds size of placeholder"
   }
 }

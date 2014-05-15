@@ -78,52 +78,25 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
 
     $("#settings-alert").empty().hide();
 
-    if(!_validateRequired($("#url"), alerts, "URL")){ return false; }
-    if(!_validateURL($("#url"), alerts, "URL")){ return false; }
-    if(!_validateRequired($("#scroll-horizontal"), alerts,
-      "Horizontal Scroll")){ return false; }
-    if(!_validateIsNumber($("#scroll-horizontal"), alerts,
-      "Horizontal Scroll")){ return false; }
-    if(!_validateRequired($("#scroll-vertical"), alerts,
-      "Vertical Scroll")){ return false; }
-    if(!_validateIsNumber($("#scroll-vertical"), alerts,
-      "Vertical Scroll")){ return false; }
+    if(!RiseVision.Common.Settings.validateRequired($("#url"),
+      alerts, "URL")){ return false; }
+
+    if(!RiseVision.Common.Settings.validateURL($("#url"),
+      alerts, "URL")){ return false; }
+
+    if(!RiseVision.Common.Settings.validateRequired($("#scroll-horizontal"),
+      alerts,"Horizontal Scroll")){ return false; }
+
+    if(!RiseVision.Common.Settings.validateNumber($("#scroll-horizontal"),
+      alerts,"Horizontal Scroll")){ return false; }
+
+    if(!RiseVision.Common.Settings.validateRequired($("#scroll-vertical"),
+      alerts, "Vertical Scroll")){ return false; }
+
+    if(!RiseVision.Common.Settings.validateNumber($("#scroll-vertical"),
+      alerts,"Vertical Scroll")){ return false; }
+
     if(!_validateScrollSizes(alerts)){ return false; }
-
-    return true;
-  }
-
-  function _validateIsNumber($element, errors, fieldName){
-    /*
-     Stricter than parseInt, using regular expression as mentioned on mozilla
-     https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/
-     Global_Objects/parseInt
-     */
-    var val = $.trim($element.val()),
-        parseIntRegExp = /^(\-|\+)?([0-9]+|Infinity)$/;
-
-    if (!$element.is(":visible")) {
-      return true;
-    } else {
-      if (!parseIntRegExp.test(val)) {
-        errors.innerHTML += fieldName + " must be a number.<br />";
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  function _validateRequired($element, errors, fieldName){
-    //Don't validate element if it's hidden.
-    if (!$element.is(":visible")) {
-      return true;
-    } else {
-      if (!$.trim($element.val())) {
-        errors.innerHTML += fieldName + " is a required field.<br />";
-        return false;
-      }
-    }
 
     return true;
   }
@@ -133,41 +106,13 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         scrollVertVal = parseInt($.trim($("#scroll-vertical").val()));
 
     if(scrollHorizVal >  parseInt(_prefs.getString("rsW"))){
-      errors.innerHTML += "Horizontal Scroll value entered exceeds size of " +
-        "placeholder.<br />";
+      errors.innerHTML += i18n.t("custom-validation.scroll-horizontal"); "<br />";
       return false;
     }
 
     if(scrollVertVal > parseInt(_prefs.getString("rsH"))){
-      errors.innerHTML += "Vertical Scroll value entered exceeds size of " +
-        "placeholder.<br />";
+      errors.innerHTML += i18n.t("custom-validation.scroll-vertical"); "<br />";
       return false;
-    }
-
-    return true;
-  }
-
-  function _validateURL($element, errors, fieldName){
-    /*
-     Discussion
-     http://stackoverflow.com/questions/37684/how-to-replace-plain-urls-
-     with-links#21925491
-
-     Using
-     https://github.com/component/regexps/blob/master/index.js#L3
-
-     */
-    var urlRegExp = /^(?:(?:ht|f)tp(?:s?)\:\/\/|~\/|\/)?(?:\w+:\w+@)?((?:(?:[-\w\d{1-3}]+\.)+(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2}))|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/i;
-
-    //Don't validate element if it's hidden.
-    if (!$element.is(":visible")) {
-      return true;
-    } else {
-      if (!urlRegExp.test($.trim($element.val()))){
-        errors.innerHTML += fieldName + " is invalid. Please enter a " +
-          "valid URL.<br />";
-        return false;
-      }
     }
 
     return true;
