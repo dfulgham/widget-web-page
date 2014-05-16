@@ -22,8 +22,10 @@
       "label": "Data Refresh Intervals (Minutes)",
       "none": "Do Not Refresh"
   },
-  "custom-validation": {
-    "scroll-horizontal": "Horizontal Scroll value entered exceeds size of placeholder",
-    "scroll-vertical": "Vertical Scroll value entered exceeds size of placeholder"
+  "validation": {
+    "required": "__fieldName__ is a required field.",
+    "numeric": "__fieldName__ must contain only numbers.",
+    "valid_url": "__fieldName__ must contain a valid URL.",
+    "scroll_size": "__fieldName__ value entered exceeds size of placeholder"
   }
 }

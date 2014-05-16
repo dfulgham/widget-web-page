@@ -51,8 +51,16 @@ msgstr "Data Refresh Intervals (Minutes)"
 msgid "refresh##none"
 msgstr "Do Not Refresh"
 
-msgid "custom-validation##scroll-horizontal"
-msgstr "Horizontal Scroll value entered exceeds size of placeholder"
+msgid "validation##required"
+msgstr "__fieldName__ is a required field."
 
-msgid "custom-validation##scroll-vertical"
-msgstr "Vertical Scroll value entered exceeds size of placeholder"
+msgid "validation##numeric"
+msgstr "__fieldName__ must contain only numbers."
+
+msgctxt "_url"
+msgid "validation##valid_url"
+msgstr "__fieldName__ must contain a valid URL."
+
+msgctxt "_size"
+msgid "validation##scroll_size"
+msgstr "__fieldName__ value entered exceeds size of placeholder"

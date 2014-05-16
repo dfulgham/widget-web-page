@@ -35,6 +35,36 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     });
   }
 
+  function _getValidationsMap(){
+    return {
+      "required": {
+        fn: RiseVision.Common.Validation.required,
+        localize: "validation.required",
+        conditional: null
+      },
+      "url": {
+        fn: RiseVision.Common.Validation.url,
+        localize: "validation.valid_url",
+        conditional: null
+      },
+      "numeric": {
+        fn: RiseVision.Common.Validation.numeric,
+        localize: "validation.numeric",
+        conditional: null
+      },
+      "horizontal_scroll": {
+        fn: RiseVision.Common.Validation.lessThan,
+        localize: "validation.scroll_size",
+        conditional: _prefs.getString("rsW")
+      },
+      "vertical_scroll": {
+        fn: RiseVision.Common.Validation.lessThan,
+        localize: "validation.scroll_size",
+        conditional: _prefs.getString("rsH")
+      }
+    }
+  }
+
   function _getAdditionalParams(){
     var additionalParams = {};
 
@@ -74,48 +104,53 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
   }
 
   function _validate(){
-    var alerts = document.getElementById("settings-alert");
+    var itemsToValidate = [
+          { el: document.getElementById("url"),
+            rules: "required|url",
+            fieldName: "URL"
+          },
+          {
+            el: document.getElementById("scroll-horizontal"),
+            rules: "required|numeric|horizontal_scroll",
+            fieldName: "Horizontal Scroll"
+          },{
+            el: document.getElementById("scroll-vertical"),
+            rules: "required|numeric|vertical_scroll",
+            fieldName: "Vertical Scroll"
+          }
+        ],
+        passed = true;
 
     $("#settings-alert").empty().hide();
 
-    if(!RiseVision.Common.Settings.validateRequired($("#url"),
-      alerts, "URL")){ return false; }
+    for(var i = 0; i < itemsToValidate.length; i++){
+      if(!_validateItem(itemsToValidate[i])){
+        passed = false;
+        break;
+      }
+    }
 
-    if(!RiseVision.Common.Settings.validateURL($("#url"),
-      alerts, "URL")){ return false; }
-
-    if(!RiseVision.Common.Settings.validateRequired($("#scroll-horizontal"),
-      alerts,"Horizontal Scroll")){ return false; }
-
-    if(!RiseVision.Common.Settings.validateNumber($("#scroll-horizontal"),
-      alerts,"Horizontal Scroll")){ return false; }
-
-    if(!RiseVision.Common.Settings.validateRequired($("#scroll-vertical"),
-      alerts, "Vertical Scroll")){ return false; }
-
-    if(!RiseVision.Common.Settings.validateNumber($("#scroll-vertical"),
-      alerts,"Vertical Scroll")){ return false; }
-
-    if(!_validateScrollSizes(alerts)){ return false; }
-
-    return true;
+    return passed;
   }
 
-  function _validateScrollSizes(errors){
-    var scrollHorizVal = parseInt($.trim($("#scroll-horizontal").val())),
-        scrollVertVal = parseInt($.trim($("#scroll-vertical").val()));
+  function _validateItem(item){
+    var rules = item.rules.split('|'),
+        validationsMap = _getValidationsMap(),
+        alerts = document.getElementById("settings-alert"),
+        passed = true;
 
-    if(scrollHorizVal >  parseInt(_prefs.getString("rsW"))){
-      errors.innerHTML += i18n.t("custom-validation.scroll-horizontal"); "<br />";
-      return false;
+    for (var i = 0, ruleLength = rules.length; i < ruleLength; i++) {
+      var rule = rules[i];
+
+      if (validationsMap[rule].fn.apply(null, [item.el,validationsMap[rule].conditional]) === false) {
+        passed = false;
+        alerts.innerHTML = i18n.t(validationsMap[rule].localize,
+          { fieldName: item.fieldName });
+        break;
+      }
     }
 
-    if(scrollVertVal > parseInt(_prefs.getString("rsH"))){
-      errors.innerHTML += i18n.t("custom-validation.scroll-vertical"); "<br />";
-      return false;
-    }
-
-    return true;
+    return passed;
   }
 
   // public space
