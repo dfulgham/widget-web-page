@@ -11,17 +11,28 @@ RiseVision.WebPage.Controller = (function(gadgets) {
 
   // private functions
   function _createPage(){
-    var gadgetWidth = _prefs.getInt("rsW"),
-        gadgetHeight = _prefs.getInt("rsH"),
+    var placeholderWidth = _prefs.getInt("rsW"),
+        placeholderHeight = _prefs.getInt("rsH"),
         scrollHoriz = _prefs.getInt("scroll-horizontal"),
         scrollVert = _prefs.getInt("scroll-vertical"),
         zoom = _prefs.getInt("zoom");
 
-    console.log(gadgetWidth, gadgetHeight, scrollHoriz, scrollVert, zoom);
+    //console.log(gadgetWidth, gadgetHeight, scrollHoriz, scrollVert, zoom);
+
+    var container = document.getElementById('webpage-container'),
+        aspectRatio = placeholderHeight/placeholderWidth * 100;
+    container.style.visibility = "hidden";
+
+    /* set the padding-bottom with the aspect ratio % to complete implementation
+       of responsiveness
+     */
+    container.setAttribute("style","padding-bottom:" + aspectRatio + "%");
 
     // TODO: Apply CSS, load iframe, callback handler should send ready event
 
     // TODO: temporarily calling it here for testing, will be moved later
+
+    container.style.visibility = "visible";
     _readyEvent();
   }
 
@@ -37,8 +48,6 @@ RiseVision.WebPage.Controller = (function(gadgets) {
         if (_url.indexOf("://") == -1) {
           _url = "http://" + _url;
         }
-
-        console.log(_url);
       }
     }
 

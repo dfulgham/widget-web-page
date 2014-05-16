@@ -45,14 +45,17 @@
     }
 
     #webpage-container {
+      position: relative;
+      height: 0;
+      overflow: hidden;
+    }
+
+    #webpage-container iframe {
       width: 100%;
       height: 100%;
       position: absolute;
       top: 0;
       left: 0;
-    }
-
-    #webpage-frame {
     }
 
 
@@ -61,7 +64,7 @@
 <body>
 
   <div id="webpage-container">
-    <iframe id="webpage-frame"></iframe>
+    <iframe id="webpage-frame" frameborder="0"></iframe>
   </div>
 
   <script src="//rvashow2.appspot.com/gadgets/gadgets.min.js"></script>
