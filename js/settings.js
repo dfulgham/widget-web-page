@@ -35,6 +35,36 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     });
   }
 
+  function _getValidationsMap(){
+    return {
+      "required": {
+        fn: RiseVision.Common.Validation.required,
+        localize: "validation.required",
+        conditional: null
+      },
+      "url": {
+        fn: RiseVision.Common.Validation.url,
+        localize: "validation.valid_url",
+        conditional: null
+      },
+      "numeric": {
+        fn: RiseVision.Common.Validation.numeric,
+        localize: "validation.numeric",
+        conditional: null
+      },
+      "horizontal_scroll": {
+        fn: RiseVision.Common.Validation.lessThan,
+        localize: "validation.scroll_size",
+        conditional: _prefs.getString("rsW")
+      },
+      "vertical_scroll": {
+        fn: RiseVision.Common.Validation.lessThan,
+        localize: "validation.scroll_size",
+        conditional: _prefs.getString("rsH")
+      }
+    }
+  }
+
   function _getAdditionalParams(){
     var additionalParams = {};
 
@@ -74,103 +104,53 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
   }
 
   function _validate(){
-    var alerts = document.getElementById("settings-alert");
+    var itemsToValidate = [
+          { el: document.getElementById("url"),
+            rules: "required|url",
+            fieldName: "URL"
+          },
+          {
+            el: document.getElementById("scroll-horizontal"),
+            rules: "required|numeric|horizontal_scroll",
+            fieldName: "Horizontal Scroll"
+          },{
+            el: document.getElementById("scroll-vertical"),
+            rules: "required|numeric|vertical_scroll",
+            fieldName: "Vertical Scroll"
+          }
+        ],
+        passed = true;
 
     $("#settings-alert").empty().hide();
 
-    if(!_validateRequired($("#url"), alerts, "URL")){ return false; }
-    if(!_validateURL($("#url"), alerts, "URL")){ return false; }
-    if(!_validateRequired($("#scroll-horizontal"), alerts,
-      "Horizontal Scroll")){ return false; }
-    if(!_validateIsNumber($("#scroll-horizontal"), alerts,
-      "Horizontal Scroll")){ return false; }
-    if(!_validateRequired($("#scroll-vertical"), alerts,
-      "Vertical Scroll")){ return false; }
-    if(!_validateIsNumber($("#scroll-vertical"), alerts,
-      "Vertical Scroll")){ return false; }
-    if(!_validateScrollSizes(alerts)){ return false; }
-
-    return true;
-  }
-
-  function _validateIsNumber($element, errors, fieldName){
-    /*
-     Stricter than parseInt, using regular expression as mentioned on mozilla
-     https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/
-     Global_Objects/parseInt
-     */
-    var val = $.trim($element.val()),
-        parseIntRegExp = /^(\-|\+)?([0-9]+|Infinity)$/;
-
-    if (!$element.is(":visible")) {
-      return true;
-    } else {
-      if (!parseIntRegExp.test(val)) {
-        errors.innerHTML += fieldName + " must be a number.<br />";
-        return false;
+    for(var i = 0; i < itemsToValidate.length; i++){
+      if(!_validateItem(itemsToValidate[i])){
+        passed = false;
+        break;
       }
     }
 
-    return true;
+    return passed;
   }
 
-  function _validateRequired($element, errors, fieldName){
-    //Don't validate element if it's hidden.
-    if (!$element.is(":visible")) {
-      return true;
-    } else {
-      if (!$.trim($element.val())) {
-        errors.innerHTML += fieldName + " is a required field.<br />";
-        return false;
+  function _validateItem(item){
+    var rules = item.rules.split('|'),
+        validationsMap = _getValidationsMap(),
+        alerts = document.getElementById("settings-alert"),
+        passed = true;
+
+    for (var i = 0, ruleLength = rules.length; i < ruleLength; i++) {
+      var rule = rules[i];
+
+      if (validationsMap[rule].fn.apply(null, [item.el,validationsMap[rule].conditional]) === false) {
+        passed = false;
+        alerts.innerHTML = i18n.t(validationsMap[rule].localize,
+          { fieldName: item.fieldName });
+        break;
       }
     }
 
-    return true;
-  }
-
-  function _validateScrollSizes(errors){
-    var scrollHorizVal = parseInt($.trim($("#scroll-horizontal").val())),
-        scrollVertVal = parseInt($.trim($("#scroll-vertical").val()));
-
-    if(scrollHorizVal >  parseInt(_prefs.getString("rsW"))){
-      errors.innerHTML += "Horizontal Scroll value entered exceeds size of " +
-        "placeholder.<br />";
-      return false;
-    }
-
-    if(scrollVertVal > parseInt(_prefs.getString("rsH"))){
-      errors.innerHTML += "Vertical Scroll value entered exceeds size of " +
-        "placeholder.<br />";
-      return false;
-    }
-
-    return true;
-  }
-
-  function _validateURL($element, errors, fieldName){
-    /*
-     Discussion
-     http://stackoverflow.com/questions/37684/how-to-replace-plain-urls-
-     with-links#21925491
-
-     Using
-     https://github.com/component/regexps/blob/master/index.js#L3
-
-     */
-    var urlRegExp = /^(?:(?:ht|f)tp(?:s?)\:\/\/|~\/|\/)?(?:\w+:\w+@)?((?:(?:[-\w\d{1-3}]+\.)+(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2}))|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/i;
-
-    //Don't validate element if it's hidden.
-    if (!$element.is(":visible")) {
-      return true;
-    } else {
-      if (!urlRegExp.test($.trim($element.val()))){
-        errors.innerHTML += fieldName + " is invalid. Please enter a " +
-          "valid URL.<br />";
-        return false;
-      }
-    }
-
-    return true;
+    return passed;
   }
 
   // public space

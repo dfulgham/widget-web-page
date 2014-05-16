@@ -21,5 +21,11 @@
   "refresh": {
       "label": "Data Refresh Intervals (Minutes)",
       "none": "Do Not Refresh"
+  },
+  "validation": {
+    "required": "__fieldName__ is a required field.",
+    "numeric": "__fieldName__ must contain only numbers.",
+    "valid_url": "__fieldName__ must contain a valid URL.",
+    "scroll_size": "__fieldName__ value entered exceeds size of placeholder"
   }
 }
