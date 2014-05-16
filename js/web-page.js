@@ -30,7 +30,8 @@ RiseVision.WebPage.Controller = (function(gadgets) {
        of responsiveness
      */
     container.setAttribute("style","padding-bottom:" + aspectRatio + "%");
-    frame.setAttribute("style", "margin: " + scrollVert + "px 0 0 " + scrollHoriz + "px");
+    frame.setAttribute("style", "margin: " + "-" + scrollVert + "px 0 0 -" +
+      scrollHoriz + "px");
 
     frame.onload = function() {
       _readyEvent();
