@@ -13,13 +13,16 @@ RiseVision.WebPage.Controller = (function(gadgets) {
   function _createPage(){
     var placeholderWidth = _prefs.getInt("rsW"),
         placeholderHeight = _prefs.getInt("rsH"),
-        scrollHoriz = _prefs.getInt("scroll-horizontal"),
-        scrollVert = _prefs.getInt("scroll-vertical"),
+        scrollHoriz = (_prefs.getInt("scroll-horizontal") > 0
+          ? _prefs.getInt("scroll-horizontal") : 0),
+        scrollVert = (_prefs.getInt("scroll-vertical") > 0
+          ? _prefs.getInt("scroll-vertical") : 0),
         zoom = _prefs.getInt("zoom");
 
-    //console.log(gadgetWidth, gadgetHeight, scrollHoriz, scrollVert, zoom);
+    //TODO: Apply scalability (zoom) CSS to iframe
 
     var container = document.getElementById('webpage-container'),
+        frame = container.firstElementChild,
         aspectRatio = placeholderHeight/placeholderWidth * 100;
     container.style.visibility = "hidden";
 
@@ -27,13 +30,13 @@ RiseVision.WebPage.Controller = (function(gadgets) {
        of responsiveness
      */
     container.setAttribute("style","padding-bottom:" + aspectRatio + "%");
+    frame.setAttribute("style", "margin: " + scrollVert + "px 0 0 " + scrollHoriz + "px");
 
-    // TODO: Apply CSS, load iframe, callback handler should send ready event
+    frame.onload = function() {
+      _readyEvent();
+    };
 
-    // TODO: temporarily calling it here for testing, will be moved later
-
-    container.style.visibility = "visible";
-    _readyEvent();
+    frame.setAttribute("src", _url);
   }
 
   function _onAdditionalParams(name, value){
@@ -55,6 +58,10 @@ RiseVision.WebPage.Controller = (function(gadgets) {
   }
 
   function _readyEvent(){
+    var container = document.getElementById('webpage-container');
+
+    container.style.visibility = "visible";
+
     gadgets.rpc.call('', 'rsevent_ready', null, _prefs.getString("id"),
       false, false, false, true, false);
   }
