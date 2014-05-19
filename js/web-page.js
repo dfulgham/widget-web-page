@@ -21,7 +21,7 @@ RiseVision.WebPage.Controller = (function(gadgets) {
             ? _prefs.getInt("scroll-horizontal") : 0),
         scrollVert = (_prefs.getInt("scroll-vertical") > 0
             ? _prefs.getInt("scroll-vertical") : 0),
-        zoom = _prefs.getInt("zoom");
+        zoom = _prefs.getFloat("zoom");
 
     /* Hiding iframe container, visible when the iframe successfully loads */
     container.style.visibility = "hidden";
@@ -39,8 +39,15 @@ RiseVision.WebPage.Controller = (function(gadgets) {
     frame.setAttribute("scrolling",
       (_prefs.getBool('scrollbars')) ? 'yes' : 'no');
 
-    //TODO: Apply scalability (zoom) CSS to iframe
-
+    /* apply the zoom (scale) on the iframe */
+    frame.setAttribute("style",
+      "-ms-zoom:" + zoom + ";" +
+      "-moz-transform: scale(" + zoom + ");" +
+      "-moz-transform-origin: 0 0;" +
+      "-o-transform: scale(" + zoom + ");" +
+      "-o-transform-origin: 0 0;" +
+      "-webkit-transform: scale(" + zoom + ");" +
+      "-webkit-transform-origin: 0 0;");
   }
 
   function _onAdditionalParams(name, value){
