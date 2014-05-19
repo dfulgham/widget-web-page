@@ -17,11 +17,12 @@ RiseVision.WebPage.Controller = (function(gadgets) {
         frame = document.getElementById('webpage-frame'),
         blocker = container.getElementsByClassName('blocker')[0],
         aspectRatio =  (_prefs.getInt("rsH")/_prefs.getInt("rsW")) * 100,
-        scrollHoriz = (_prefs.getInt("scroll-horizontal") > 0
+        scrollHorizVal = (_prefs.getInt("scroll-horizontal") > 0
             ? _prefs.getInt("scroll-horizontal") : 0),
-        scrollVert = (_prefs.getInt("scroll-vertical") > 0
+        scrollVertVal = (_prefs.getInt("scroll-vertical") > 0
             ? _prefs.getInt("scroll-vertical") : 0),
-        zoom = _prefs.getFloat("zoom");
+        zoom = _prefs.getFloat("zoom"),
+        zoomStyle, marginStyle;
 
     /* Hiding iframe container, visible when the iframe successfully loads */
     container.style.visibility = "hidden";
@@ -30,24 +31,45 @@ RiseVision.WebPage.Controller = (function(gadgets) {
      */
     container.setAttribute("style","padding-bottom:" + aspectRatio + "%");
 
-    /* setting the scroll margins on the iframe */
-    frame.setAttribute("style", "margin: " + "-" + scrollVert + "px 0 0 -" +
-      scrollHoriz + "px");
-
-    /* configure interactivity of iframe */
+    /* Configure interactivity of iframe */
     blocker.style.display = (_prefs.getBool("interactive")) ? "none" : "block";
     frame.setAttribute("scrolling",
       (_prefs.getBool('scrollbars')) ? 'yes' : 'no');
 
-    /* apply the zoom (scale) on the iframe */
-    frame.setAttribute("style",
-      "-ms-zoom:" + zoom + ";" +
+    /* Configure the zoom (scale) styling */
+    zoomStyle = "-ms-zoom:" + zoom + ";" +
       "-moz-transform: scale(" + zoom + ");" +
       "-moz-transform-origin: 0 0;" +
       "-o-transform: scale(" + zoom + ");" +
       "-o-transform-origin: 0 0;" +
       "-webkit-transform: scale(" + zoom + ");" +
-      "-webkit-transform-origin: 0 0;");
+      "-webkit-transform-origin: 0 0;";
+
+    /* Apply the zoom (scale) on the iframe */
+    frame.setAttribute("style", zoomStyle);
+
+    /* Configure the negative margin values */
+    if(scrollHorizVal !== 0){
+      scrollHorizVal = (zoom !== 1) ?
+       (scrollHorizVal/frame.getBoundingClientRect().width) * 100 :
+       (scrollHorizVal/frame.offsetWidth) * 100;
+    }
+
+    if(scrollVertVal !== 0){
+      scrollVertVal = (zoom !== 1) ?
+        (scrollVertVal/frame.getBoundingClientRect().height) * 100 :
+        (scrollVertVal/frame.offsetHeight) * 100;
+    }
+
+    if(scrollHorizVal !== 0 || scrollVertVal !== 0){
+      /* Configure the margin styling */
+      marginStyle = "margin: " + "-" + scrollVertVal + "% 0 0 -" +
+        scrollHorizVal + "%;";
+
+      /* Apply the margin styling on the iframe while maintaining
+       the zoom styling */
+      frame.setAttribute("style", zoomStyle + marginStyle);
+    }
   }
 
   function _onAdditionalParams(name, value){
