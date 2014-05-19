@@ -14,7 +14,8 @@ RiseVision.WebPage.Controller = (function(gadgets) {
   // private functions
   function _createPage(){
     var container = document.getElementById('webpage-container'),
-        frame = container.firstElementChild,
+        frame = document.getElementById('webpage-frame'),
+        blocker = container.getElementsByClassName('blocker')[0],
         aspectRatio =  (_prefs.getInt("rsH")/_prefs.getInt("rsW")) * 100,
         scrollHoriz = (_prefs.getInt("scroll-horizontal") > 0
             ? _prefs.getInt("scroll-horizontal") : 0),
@@ -32,6 +33,11 @@ RiseVision.WebPage.Controller = (function(gadgets) {
     /* setting the scroll margins on the iframe */
     frame.setAttribute("style", "margin: " + "-" + scrollVert + "px 0 0 -" +
       scrollHoriz + "px");
+
+    /* configure interactivity of iframe */
+    blocker.style.display = (_prefs.getBool("interactive")) ? "none" : "block";
+    frame.setAttribute("scrolling",
+      (_prefs.getBool('scrollbars')) ? 'yes' : 'no');
 
     //TODO: Apply scalability (zoom) CSS to iframe
 
@@ -58,7 +64,7 @@ RiseVision.WebPage.Controller = (function(gadgets) {
 
   function _loadFrame() {
     var container = document.getElementById('webpage-container'),
-        frame = container.firstElementChild;
+        frame = document.getElementById('webpage-frame');
 
     if(_initialLoad){
       frame.onload = function() {
