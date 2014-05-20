@@ -5,11 +5,8 @@ RiseVision.WebPage.Controller = (function(gadgets) {
   "use strict";
 
   // private variables
-  var _prefs = null,
-      _url = "",
-      _dataRefresh = null,
-      _intervalId = null,
-      _initialLoad = true;
+  var _prefs = null, _url = "", _dataRefresh = null,
+      _intervalId = null, _initialLoad = true;
 
   // private functions
   function _createPage(){
@@ -78,12 +75,16 @@ RiseVision.WebPage.Controller = (function(gadgets) {
       if (value) {
         value = JSON.parse(value);
 
+        // Configure the value for _url
         _url = value["url"];
 
         // Add http:// if no protocol parameter exists
         if (_url.indexOf("://") == -1) {
           _url = "http://" + _url;
         }
+
+        // Apply a cache buster to ensure loading most recent version
+        _url += "?dummyVar=" + Math.ceil(Math.random() * 100);
       }
     }
 
