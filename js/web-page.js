@@ -82,9 +82,6 @@ RiseVision.WebPage.Controller = (function(gadgets) {
         if (_url.indexOf("://") == -1) {
           _url = "http://" + _url;
         }
-
-        // Apply a cache buster to ensure loading most recent version
-        _url += "?dummyVar=" + Math.ceil(Math.random() * 100);
       }
     }
 
@@ -94,7 +91,8 @@ RiseVision.WebPage.Controller = (function(gadgets) {
 
   function _loadFrame() {
     var container = document.getElementById('webpage-container'),
-        frame = document.getElementById('webpage-frame');
+        frame = document.getElementById('webpage-frame'),
+        refreshURL = _url + "?dummyVar=" + Math.ceil(Math.random() * 100);
 
     if(_initialLoad){
       frame.onload = function() {
@@ -104,7 +102,7 @@ RiseVision.WebPage.Controller = (function(gadgets) {
       }
     }
 
-    frame.setAttribute("src", _url);
+    frame.setAttribute("src", refreshURL);
   }
 
   function _readyEvent(){
