@@ -148,3 +148,26 @@ RiseVision.WebPage.Controller = (function(gadgets) {
 
 })(gadgets);
 
+// Add Analytics code.
+var _gaq = _gaq || [];
+
+_gaq.push(['_setAccount', 'UA-41395348-11']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script');
+  ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(ga, s);
+})();
+
+// Disable context menu (right click menu)
+window.oncontextmenu = function() {
+  return false;
+};
+
+// Initialize Web Page Controller
+RiseVision.WebPage.Controller.init();
+
