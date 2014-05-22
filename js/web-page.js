@@ -32,7 +32,7 @@ RiseVision.WebPage.Controller = (function(gadgets) {
     blocker.style.display = (_prefs.getBool("interactive")) ? "none" : "block";
     frame.setAttribute("scrolling",
       (_prefs.getBool('scrollbars')) ? 'yes' : 'no');
-    container.style.overflow = (_prefs.getBool('scrollbars')) ? 'auto' : 'hidden';
+    container.style.overflowX = (_prefs.getBool('scrollbars')) ? 'auto' : 'hidden';
 
     /* Configure the zoom (scale) styling */
     zoomStyle = "-ms-zoom:" + zoom + ";" +
