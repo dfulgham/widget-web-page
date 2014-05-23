@@ -20,7 +20,7 @@
     "label": "Interactive",
     "tooltip": "Enable to allow users to interact with webpage."
   },
-  "scrollbars": "Scroll Bars Enabled",
+  "scrollbars": "Scrollbars Enabled",
   "refresh": {
       "label": "Data Refresh Intervals (minutes)",
       "none": "Do Not Refresh"

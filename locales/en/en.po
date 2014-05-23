@@ -46,7 +46,7 @@ msgid "interactive##tooltip"
 msgstr "Enable to allow users to interact with webpage."
 
 msgid "scrollbars"
-msgstr "Scroll Bars Enabled"
+msgstr "Scrollbars Enabled"
 
 msgid "refresh##label"
 msgstr "Data Refresh Intervals (minutes)"
