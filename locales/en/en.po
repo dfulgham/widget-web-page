@@ -46,7 +46,7 @@ msgid "scrollbars"
 msgstr "Scroll Bars Enabled"
 
 msgid "refresh##label"
-msgstr "Data Refresh Intervals (Minutes)"
+msgstr "Data Refresh Intervals (minutes)"
 
 msgid "refresh##none"
 msgstr "Do Not Refresh"
