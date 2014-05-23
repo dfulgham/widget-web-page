@@ -33,8 +33,11 @@ msgstr "Vertical Scroll (pixels)"
 msgid "scroll-vertical##tooltip"
 msgstr "Enter amount you want clipped from the topmost portion of the webpage."
 
-msgid "zoom"
+msgid "zoom##label"
 msgstr "Zoom"
+
+msgid "zoom##tooltip"
+msgstr "This will allow you to zoom in/out of a web page. If value is higher than 100% then scrollbars will be disabled."
 
 msgid "interactive##label"
 msgstr "Interactive"

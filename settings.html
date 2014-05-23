@@ -97,7 +97,13 @@
       </div>
       <div class="row">
         <div class="col-md-4 col-sm-5 col-xs-9">
-          <label for="zoom" data-i18n="zoom"></label>
+          <label for="zoom" data-i18n="zoom.label"></label>
+          <button type="button"
+                  class="btn btn-link btn-help"
+                  data-toggle="popover" data-placement="right"
+                  data-i18n="[data-content]zoom.tooltip">
+            <span class="glyphicons circle_question_mark"></span>
+          </button>
           <select id="zoom" name="zoom" class="form-control">
             <option value="0.50">50%</option>
             <option value="0.75">75%</option>

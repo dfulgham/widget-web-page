@@ -240,6 +240,7 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
           // Set tooltips only after i18n has shown
           $("label[for='scroll-horizontal'] + button, " +
             "label[for='scroll-vertical'] + button, " +
+            "label[for='zoom'] + button, " + 
             "label[for='interactive'] + button").popover({trigger:'click'});
 
           //Set buttons to be sticky only after wrapper is visible.
