@@ -1,0 +1,34 @@
+{
+  "settings": "Web Page Settings",
+  "save": "Save",
+  "cancel": "Cancel",
+  "help": "Help",
+  "url": "URL*",
+  "scroll-horizontal": {
+    "label": "Horizontal Scroll (pixels)",
+    "tooltip": "Enter amount you want clipped from the leftmost portion of the webpage."
+  },
+  "scroll-vertical": {
+    "label": "Vertical Scroll (pixels)",
+    "tooltip": "Enter amount you want clipped from the topmost portion of the webpage."
+  },
+  "zoom": {
+    "label": "Zoom",
+    "tooltip": "This will allow you to zoom in/out of a web page. If value is higher than 100% then scrollbars will be disabled."
+  },
+  "interactive": {
+    "label": "Interactive",
+    "tooltip": "Enable to allow users to interact with webpage."
+  },
+  "scrollbars": "Scrollbars Enabled",
+  "refresh": {
+      "label": "Data Refresh Interval (minutes)",
+      "none": "Do Not Refresh"
+  },
+  "validation": {
+    "required": "__fieldName__ is a required field.",
+    "numeric": "__fieldName__ must contain only numbers.",
+    "valid_url": "__fieldName__ must contain a valid URL.",
+    "scroll_size": "__fieldName__ value entered exceeds size of placeholder"
+  }
+}
