@@ -21,19 +21,22 @@ RiseVision.WebPage.Controller = (function(gadgets) {
         zoom = _prefs.getFloat("zoom"),
         zoomStyle, marginStyle;
 
-    /* Hiding iframe container, visible when the iframe successfully loads */
+    // Hiding iframe container, visible when the iframe successfully loads
     container.style.visibility = "hidden";
 
-    /* set the padding-bottom with the aspect ratio % (responsive)
-     */
+    // set the padding-bottom with the aspect ratio % (responsive)
+    if(scrollVertVal !== 0){
+      // recalculate aspect ratio
+      aspectRatio += (scrollVertVal/_prefs.getInt("rsW")) * 100;
+    }
     container.setAttribute("style","padding-bottom:" + aspectRatio + "%");
 
-    /* Configure interactivity of iframe */
+    // Configure interactivity of iframe
     blocker.style.display = (_prefs.getBool("interactive")) ? "none" : "block";
     frame.setAttribute("scrolling",
       (_prefs.getBool('scrollbars')) ? 'yes' : 'no');
 
-    /* Configure the zoom (scale) styling */
+    // Configure the zoom (scale) styling
     zoomStyle = "-ms-zoom:" + zoom + ";" +
       "-moz-transform: scale(" + zoom + ");" +
       "-moz-transform-origin: 0 0;" +
@@ -42,26 +45,13 @@ RiseVision.WebPage.Controller = (function(gadgets) {
       "-webkit-transform: scale(" + zoom + ");" +
       "-webkit-transform-origin: 0 0;";
 
-    /* Apply the zoom (scale) on the iframe */
+    // Apply the zoom (scale) on the iframe
     frame.setAttribute("style", zoomStyle);
 
-    /* Configure the negative margin values */
-    if(scrollHorizVal !== 0){
-      scrollHorizVal = (zoom !== 1) ?
-       (scrollHorizVal/frame.getBoundingClientRect().width) * 100 :
-       (scrollHorizVal/frame.offsetWidth) * 100;
-    }
-
-    if(scrollVertVal !== 0){
-      scrollVertVal = (zoom !== 1) ?
-        (scrollVertVal/frame.getBoundingClientRect().height) * 100 :
-        (scrollVertVal/frame.offsetHeight) * 100;
-    }
-
     if(scrollHorizVal !== 0 || scrollVertVal !== 0){
-      /* Configure the margin styling */
-      marginStyle = "margin: " + "-" + scrollVertVal + "% 0 0 -" +
-        scrollHorizVal + "%;";
+      // Configure the margin styling
+      marginStyle = "margin: " + "-" + scrollVertVal + "px 0 0 -" +
+        scrollHorizVal + "px;";
 
       /* Apply the margin styling on the iframe while maintaining
        the zoom styling */
