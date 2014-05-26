@@ -22,7 +22,7 @@
   },
   "scrollbars": "Scrollbars Enabled",
   "refresh": {
-      "label": "Data Refresh Intervals (minutes)",
+      "label": "Data Refresh Interval (minutes)",
       "none": "Do Not Refresh"
   },
   "validation": {
