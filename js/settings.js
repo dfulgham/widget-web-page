@@ -5,9 +5,7 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
   "use strict";
 
   // private variables
-  var _prefs = null,
-      _currentZoom = 1,
-      _el;
+  var _prefs = null, _currentZoom = 1, _el;
 
   // private functions
   function _bind(){
@@ -25,51 +23,51 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         "free-gadgets/rise-vision-url/", "_blank");
     });
 
-    _el.zoomSel.on('change', function() {
+    _el.$zoomSel.on('change', function() {
       //alert( this.value ); // or $(this).val()
       if($(this).val() > 1){
-        if (!_el.scrollbarsCB.is(':disabled')){
-          if(_el.scrollbarsCB.is(":checked")) {
-            _el.scrollbarsCB.click();
+        if (!_el.$scrollbarsCB.is(':disabled')){
+          if(_el.$scrollbarsCB.is(":checked")) {
+            _el.$scrollbarsCB.click();
           }
-          _el.scrollbarsCB.prop('disabled', true);
+          _el.$scrollbarsCB.prop('disabled', true);
           $("label[for='scrollbars']").addClass('label-disabled').css(
             'cursor','default');
         }
         _currentZoom = $(this).val();
       } else {
-        if (_el.scrollbarsCB.is(':disabled')){
-          _el.scrollbarsCB.prop('disabled', false);
+        if (_el.$scrollbarsCB.is(':disabled')){
+          _el.$scrollbarsCB.prop('disabled', false);
           $("label[for='scrollbars']").removeClass('label-disabled').css(
             'cursor','pointer');
         }
       }
     });
 
-    _el.interactiveCB.on("click", function(event) {
+    _el.$interactiveCB.on("click", function(event) {
       if ($(this).is(":checked")) {
-        _el.scrollbarsCtn.show();
+        _el.$scrollbarsCtn.show();
       } else {
-        if(_currentZoom <= 1 && _el.scrollbarsCB.is(":checked")){
-          _el.scrollbarsCB.click();
+        if(_currentZoom <= 1 && _el.$scrollbarsCB.is(":checked")){
+          _el.$scrollbarsCB.click();
         }
-        _el.scrollbarsCtn.hide();
+        _el.$scrollbarsCtn.hide();
       }
     });
   }
 
   function _cache(){
     _el = {
-      wrapperCtn:           $(".widget-wrapper"),
-      urlInp:               $("#url"),
-      alertCtn:             $("#settings-alert"),
-      scrollHorizInp:       $("#scroll-horizontal"),
-      scrollVertInp:        $("#scroll-vertical"),
-      interactiveCB:        $("#interactive"),
-      scrollbarsCtn:        $("#interactivity > div + div.checkbox"),
-      scrollbarsCB:         $("#scrollbars"),
-      zoomSel:              $("#zoom"),
-      dataRefreshSel:       $("#refresh")
+      $wrapperCtn:           $(".widget-wrapper"),
+      $urlInp:               $("#url"),
+      $alertCtn:             $("#settings-alert"),
+      $scrollHorizInp:       $("#scroll-horizontal"),
+      $scrollVertInp:        $("#scroll-vertical"),
+      $interactiveCB:        $("#interactive"),
+      $scrollbarsCtn:        $("#interactivity > div + div.checkbox"),
+      $scrollbarsCB:         $("#scrollbars"),
+      $zoomSel:              $("#zoom"),
+      $dataRefreshSel:       $("#refresh")
     }
   }
 
@@ -106,19 +104,19 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
   function _getAdditionalParams(){
     var additionalParams = {};
 
-    additionalParams["url"] = _el.urlInp.val();
+    additionalParams["url"] = _el.$urlInp.val();
 
     return additionalParams;
   }
 
   function _getParams(){
     var params = "&up_scroll-horizontal=" +
-      $.trim(_el.scrollHorizInp.val()) + "&up_scroll-vertical=" +
-      $.trim(_el.scrollVertInp.val()) + "&up_zoom=" +
-      _el.zoomSel.val() + "&up_interactive=" +
-      _el.interactiveCB.is(":checked").toString() + "&up_scrollbars=" +
-      _el.scrollbarsCB.is(":checked").toString() + "&up_data-refresh=" +
-      _el.dataRefreshSel.val();
+      $.trim(_el.$scrollHorizInp.val()) + "&up_scroll-vertical=" +
+      $.trim(_el.$scrollVertInp.val()) + "&up_zoom=" +
+      _el.$zoomSel.val() + "&up_interactive=" +
+      _el.$interactiveCB.is(":checked").toString() + "&up_scrollbars=" +
+      _el.$scrollbarsCB.is(":checked").toString() + "&up_data-refresh=" +
+      _el.$dataRefreshSel.val();
 
     return params;
   }
@@ -128,8 +126,8 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
 
     // validate
     if(!_validate()){
-      _el.alertCtn.show();
-      _el.wrapperCtn.scrollTop(0);
+      _el.$alertCtn.show();
+      _el.$wrapperCtn.scrollTop(0);
     } else {
       //construct settings object
       settings = {
@@ -145,21 +143,22 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     var itemsToValidate = [
           { el: document.getElementById("url"),
             rules: "required|url",
-            fieldName: "URL"
+            fieldName: i18n.t("url")
           },
           {
             el: document.getElementById("scroll-horizontal"),
             rules: "required|numeric|horizontal_scroll",
-            fieldName: "Horizontal Scroll"
-          },{
+            fieldName: i18n.t("scroll-horizontal.label")
+          },
+          {
             el: document.getElementById("scroll-vertical"),
             rules: "required|numeric|vertical_scroll",
-            fieldName: "Vertical Scroll"
+            fieldName: i18n.t("scroll-vertical.label")
           }
         ],
         passed = true;
 
-    _el.alertCtn.empty().hide();
+    _el.$alertCtn.empty().hide();
 
     for(var i = 0; i < itemsToValidate.length; i++){
       if(!_validateItem(itemsToValidate[i])){
@@ -198,7 +197,7 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
       _cache();
       _bind();
 
-      _el.alertCtn.hide();
+      _el.$alertCtn.hide();
 
       //Request additional parameters from the Viewer.
       gadgets.rpc.call("", "rscmd_getAdditionalParams", function(result) {
@@ -208,33 +207,33 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
         if (result) {
           result = JSON.parse(result);
 
-          _el.scrollHorizInp.val(_prefs.getString("scroll-horizontal"));
-          _el.scrollVertInp.val(_prefs.getString("scroll-vertical"));
-          _el.zoomSel.val(_prefs.getString("zoom"));
-          _el.interactiveCB.attr("checked", _prefs.getBool("interactive"));
-          _el.scrollbarsCB.attr("checked", _prefs.getBool("scrollbars"));
+          _el.$scrollHorizInp.val(_prefs.getString("scroll-horizontal"));
+          _el.$scrollVertInp.val(_prefs.getString("scroll-vertical"));
+          _el.$zoomSel.val(_prefs.getString("zoom"));
+          _el.$interactiveCB.attr("checked", _prefs.getBool("interactive"));
+          _el.$scrollbarsCB.attr("checked", _prefs.getBool("scrollbars"));
           if(_prefs.getString("zoom") > 1){
-            _el.scrollbarsCB.prop('disabled', true);
+            _el.$scrollbarsCB.prop('disabled', true);
             $("label[for='scrollbars']").addClass('label-disabled').css(
               'cursor','default');
           }
-          _el.dataRefreshSel.val(_prefs.getString("data-refresh"));
+          _el.$dataRefreshSel.val(_prefs.getString("data-refresh"));
 
           //Additional params
-          _el.urlInp.val(result["url"]);
+          _el.$urlInp.val(result["url"]);
 
         } else {
           // initialize input elements with defaults
-          _el.scrollHorizInp.val(0);
-          _el.scrollVertInp.val(0);
+          _el.$scrollHorizInp.val(0);
+          _el.$scrollVertInp.val(0);
         }
 
         /* Manually trigger event handlers so that the visibility of fields
            can be set. */
-        _el.interactiveCB.triggerHandler("click");
+        _el.$interactiveCB.triggerHandler("click");
 
         i18n.init({ fallbackLng: "en" }, function(t) {
-          _el.wrapperCtn.i18n().show();
+          _el.$wrapperCtn.i18n().show();
           $(".form-control").selectpicker();
 
           // Set tooltips only after i18n has shown
@@ -245,9 +244,9 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
 
           //Set buttons to be sticky only after wrapper is visible.
           $(".sticky-buttons").sticky({
-              container : _el.wrapperCtn,
+              container : _el.$wrapperCtn,
               topSpacing : 41,	//top margin + border of wrapper
-              getWidthFrom : _el.wrapperCtn
+              getWidthFrom : _el.$wrapperCtn
           });
 
         });
@@ -255,4 +254,6 @@ RiseVision.WebPage.Settings = (function($,gadgets, i18n) {
     }
   };
 })($,gadgets, i18n);
+
+RiseVision.WebPage.Settings.init();
 

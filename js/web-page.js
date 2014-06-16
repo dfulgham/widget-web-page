@@ -6,10 +6,10 @@ RiseVision.WebPage.Controller = (function(gadgets) {
 
   // private variables
   var _prefs = null, _url = "", _dataRefresh = null,
-      _intervalId = null, _initialLoad = true;
+      _intervalId = null;
 
   // private functions
-  function _createPage(){
+  function _configurePage(){
     var container = document.getElementById('webpage-container'),
         frame = document.getElementById('webpage-frame'),
         blocker = container.getElementsByClassName('blocker')[0],
@@ -60,7 +60,6 @@ RiseVision.WebPage.Controller = (function(gadgets) {
   }
 
   function _onAdditionalParams(name, value){
-
     if (name == "additionalParams") {
       if (value) {
         value = JSON.parse(value);
@@ -75,42 +74,59 @@ RiseVision.WebPage.Controller = (function(gadgets) {
       }
     }
 
-    _createPage();
-    _loadFrame();
+    _configurePage();
+
+    // Send the ready event to the player
+    gadgets.rpc.call('', 'rsevent_ready', null, _prefs.getString("id"),
+      false, false, false, true, false);
   }
 
   function _loadFrame() {
-    var container = document.getElementById('webpage-container'),
-        frame = document.getElementById('webpage-frame'),
+    var frame = document.getElementById('webpage-frame'),
         refreshURL = _url + "?dummyVar=" + Math.ceil(Math.random() * 100);
 
-    if(_initialLoad){
-      frame.onload = function() {
-        _initialLoad = false;
-        frame.onload = null;
-        _readyEvent();
-      }
+    frame.onload = function(){
+      frame.onload = null;
+      _onFrameLoaded();
     }
 
     frame.setAttribute("src", refreshURL);
   }
 
-  function _readyEvent(){
+  function _onFrameLoaded(){
     var container = document.getElementById('webpage-container');
 
-    /* Show the iframe container */
+    // Show the iframe container
     container.style.visibility = "visible";
 
-    /* Run setInterval to reload page based on the data refresh value */
+    // Run setInterval to reload page based on the data refresh value
     if(_dataRefresh > 0){
       _intervalId = setInterval(function() {
         _loadFrame();
       }, _dataRefresh);
     }
+  }
 
-    /* Send the ready event to the player */
-    gadgets.rpc.call('', 'rsevent_ready', null, _prefs.getString("id"),
-      false, false, false, true, false);
+  function _onPause(){
+    _unloadFrame();
+  }
+
+  function _onPlay(){
+    _loadFrame();
+  }
+
+  function _onStop(){
+    _unloadFrame();
+  }
+
+  function _unloadFrame() {
+    var frame = document.getElementById('webpage-frame');
+
+    if(_dataRefresh > 0){
+      clearInterval(_intervalId);
+    }
+
+    frame.src = "about:blank";
   }
 
   // public space
@@ -129,6 +145,11 @@ RiseVision.WebPage.Controller = (function(gadgets) {
 
       // Retrieve additional params
       if (id) {
+        // Register rpc event handlers
+        gadgets.rpc.register("rscmd_play_" + id, _onPlay);
+        gadgets.rpc.register("rscmd_pause_" + id, _onPause);
+        gadgets.rpc.register("rscmd_stop_" + id, _onStop);
+
         gadgets.rpc.register("rsparam_set_" + id, _onAdditionalParams);
         gadgets.rpc.call("", "rsparam_get", null, id, "additionalParams");
       }
