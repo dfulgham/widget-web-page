@@ -8,19 +8,6 @@ RiseVision.WebPage.Controller = (function(gadgets) {
   var _prefs = null, _url = "", _dataRefresh = null,
       _intervalId = null;
 
-  function _addFrame(){
-    var container = document.getElementById('webpage-container'),
-        frame = document.getElementById('webpage-frame'), f;
-
-    if(!frame){
-      f = document.createElement("iframe");
-      f.setAttribute("id", "webpage-frame");
-      f.setAttribute("frameborder", "0");
-      f.setAttribute("allowTransparency", "true");
-      container.appendChild(f);
-    }
-  }
-
   // private functions
   function _configurePage(){
     var container = document.getElementById('webpage-container'),
@@ -87,6 +74,8 @@ RiseVision.WebPage.Controller = (function(gadgets) {
       }
     }
 
+    _configurePage();
+
     // Send the ready event to the player
     gadgets.rpc.call('', 'rsevent_ready', null, _prefs.getString("id"),
       false, false, false, true, false);
@@ -119,27 +108,25 @@ RiseVision.WebPage.Controller = (function(gadgets) {
   }
 
   function _onPause(){
-    _removeFrame();
+    _unloadFrame();
   }
 
   function _onPlay(){
-    _addFrame();
-    _configurePage();
     _loadFrame();
   }
 
   function _onStop(){
-    _removeFrame();
+    _unloadFrame();
   }
 
-  function _removeFrame() {
+  function _unloadFrame() {
     var frame = document.getElementById('webpage-frame');
 
     if(_dataRefresh > 0){
       clearInterval(_intervalId);
     }
 
-    frame.parentNode.removeChild(frame);
+    frame.src = "about:blank";
   }
 
   // public space
