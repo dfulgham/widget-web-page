@@ -83,7 +83,10 @@ RiseVision.WebPage.Controller = (function(gadgets) {
 
   function _loadFrame() {
     var frame = document.getElementById('webpage-frame'),
-        refreshURL = _url + "?dummyVar=" + Math.ceil(Math.random() * 100);
+      hasParams = /[?#&]/.test(_url),
+      randomNum = Math.ceil(Math.random() * 100),
+      refreshURL = (hasParams) ?
+        _url + "&dummyVar=" + randomNum : _url + "?dummyVar=" + randomNum;
 
     frame.onload = function(){
       frame.onload = null;
