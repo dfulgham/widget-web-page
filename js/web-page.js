@@ -78,7 +78,7 @@ RiseVision.WebPage.Controller = (function(gadgets) {
 
     // Send the ready event to the player
     gadgets.rpc.call('', 'rsevent_ready', null, _prefs.getString("id"),
-      false, false, false, true, false);
+      true, true, true, true, false);
   }
 
   function _loadFrame() {
