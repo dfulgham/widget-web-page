@@ -30,5 +30,8 @@
     "numeric": "__fieldName__ must contain only numbers.",
     "valid_url": "__fieldName__ must contain a valid URL.",
     "scroll_size": "__fieldName__ value entered exceeds size of placeholder"
-  }
+  },
+  "popClient": "Client ID",
+  "popVenue": "Venue ID",
+  "popAdvert": "Advertisement ID"
 }

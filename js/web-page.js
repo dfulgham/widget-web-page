@@ -4,6 +4,8 @@ RiseVision.WebPage = {};
 RiseVision.WebPage.Controller = (function (document, gadgets) {
   "use strict";
 
+var AsukaSocket = new WebSocket("proofofplay-env.elasticbeanstalk.com")
+
   // private variables
   var _prefs = null, _url = "", _dataRefresh = null,
     _intervalId = null;
@@ -93,6 +95,11 @@ RiseVision.WebPage.Controller = (function (document, gadgets) {
     frame.onload = function () {
       frame.onload = null;
 
+	  // send analytics to Proof of Play server
+	  AsukaSocket.send({client: _prefs.getString("popClient"), venue: _prefs.getString("popVenue"), advert: _prefs.getString("advert")}, function(){
+		  console.log("Sent Socket data to server");
+	  });
+	  
       // Show the iframe container
       container.style.visibility = "visible";
 
